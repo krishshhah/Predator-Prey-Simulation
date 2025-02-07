@@ -118,7 +118,7 @@ public class Field
      */
     public void fieldStats()
     {
-        int numSharks = 0, numTurtles = 0, numCrocodiles = 0, numOrcas = 0;
+        int numSharks = 0, numTurtles = 0, numCrocodiles = 0, numPlants = 0, numOrcas = 0;
         for(Animal anAnimal : field.values()) {
             if(anAnimal instanceof Shark shark) {
                 if(shark.isAlive()) {
@@ -135,6 +135,11 @@ public class Field
                     numCrocodiles++;
                 }
             }
+            else if(anAnimal instanceof Plant plant) {
+                if(plant.isAlive()) {
+                    numPlants++;
+                }
+            }
 //            else if(anAnimal instanceof Orca orca) {
 //                if(orca.isAlive()) {
 //                    numOrcas++;
@@ -142,7 +147,8 @@ public class Field
 //            }
         }
         System.out.println("Turtles: " + numTurtles +
-                           " Sharks: " + numSharks + " Crocodiles: " + numCrocodiles);
+                           " Sharks: " + numSharks + " Crocodiles: "
+                + numCrocodiles + " Plants: " + numPlants);
     }
 
     /**
@@ -178,6 +184,7 @@ public class Field
                     crocodileFound = true;
                 }
             }
+
 //            else if(anAnimal instanceof Orca orca) {
 //                if(orca.isAlive()) {
 //                    orcaFound = true;

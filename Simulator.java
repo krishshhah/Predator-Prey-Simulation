@@ -23,6 +23,8 @@ public class Simulator {
 
     private static final double ORCA_CREATION_PROBABILITY = 0.01;
 
+    private static final double PLANT_CREATION_PROBABILITY = 0.05;
+
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -123,25 +125,21 @@ public class Simulator {
         field.clear();
         for (int row = 0; row < field.getDepth(); row++) {
             for (int col = 0; col < field.getWidth(); col++) {
+                Location location = new Location(row, col);
+                Animal animal = null;
                 if (rand.nextDouble() <= SHARK_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Shark shark = new Shark(true, location);
-                    field.placeAnimal(shark, location);
+                    animal = new Shark(true, location);
                 } else if (rand.nextDouble() <= TURTLE_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Turtle turtle = new Turtle(true, location);
-                    field.placeAnimal(turtle, location);
+                    animal = new Turtle(true, location);
                 } else if (rand.nextDouble() <= CROCODILE_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Crocodile crocodile = new Crocodile(true, location);
-                    field.placeAnimal(crocodile, location);
-
-//                } else if (rand.nextDouble() <= ORCA_CREATION_PROBABILITY) {
-//                Location location = new Location(row, col);
-//                Crocodile orca = new Crocodile(true, location);
-//                field.placeAnimal(orca, location);
+                    animal = new Crocodile(true, location);
+                } else if (false && rand.nextDouble() <= ORCA_CREATION_PROBABILITY) {
+                    animal = new Orca(true, location);
+                } else if (rand.nextDouble() <= PLANT_CREATION_PROBABILITY) {
+                    animal = new Plant(true, location);
                 }
-                // else leave the location empty.
+                if (animal != null)
+                    field.placeAnimal(animal, location);
             }
         }
     }

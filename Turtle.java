@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -27,6 +28,10 @@ public class Turtle extends Animal {
     // true = disease likely to exist, false = will not
     private final static boolean diseasePop = true;
 
+    private int foodLevel;
+
+    private static final int PLANT_BITE = 5;
+
     /**
      * Create a new Turtle. A Turtle may be created with age
      * zero (a new born) or with a random age.
@@ -42,7 +47,9 @@ public class Turtle extends Animal {
         isMale = rand.nextBoolean();
         double diseaseChance = rand.nextDouble();
         hasDisease = diseaseChance < 0.05; // x% of having a disease
-        lifeExpectancy = (diseasePop && hasDisease) ? age + 5 : MAX_AGE; // if they have a disease, they only get 5 steps after catching disease (lives)
+        // if they have a disease, they only get 5 steps after catching disease (lives)
+        lifeExpectancy = (diseasePop && hasDisease) ? age + 5 : MAX_AGE;
+        foodLevel = 50;
     }
 
     /**
@@ -55,6 +62,7 @@ public class Turtle extends Animal {
      */
     public void act(Field currentField, Field nextFieldState, int currentTime) {
         incrementAge();
+        incrementHunger();
         if (isAlive()) {
             List<Location> freeLocations =
                     nextFieldState.getFreeAdjacentLocations(getLocation());
@@ -64,8 +72,13 @@ public class Turtle extends Animal {
                 giveBirth(nextFieldState, freeLocations, adjacentLocations);
             }
             // Try to move into a free location.
-            if (!freeLocations.isEmpty()) {
-                Location nextLocation = freeLocations.get(0);
+            Location nextLocation = findFood(currentField);
+            if(nextLocation == null && ! freeLocations.isEmpty()) {
+                // No food found - try to move to a free location.
+                nextLocation = freeLocations.remove(0);
+            }
+            // See if it was possible to move.
+            if(nextLocation != null) {
                 setLocation(nextLocation);
                 nextFieldState.placeAnimal(this, nextLocation);
             } else {
@@ -74,6 +87,7 @@ public class Turtle extends Animal {
             }
         }
     }
+
 
     /**
      * if the animal catches disease then can only move 5 steps more than
@@ -151,5 +165,29 @@ public class Turtle extends Animal {
      */
     private boolean canBreed() {
         return age >= BREEDING_AGE;
+    }
+
+    private Location findFood(Field field) {
+        List<Location> adjacent = field.getAdjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        Location foodLocation = null;
+        while (foodLocation == null && it.hasNext()) {
+            Location loc = it.next();
+            Animal animal = field.getAnimalAt(loc);
+            if (animal instanceof Plant plant) {
+                if (plant.isAlive()) {
+                    foodLevel = plant.eaten(PLANT_BITE);
+                    foodLocation = loc;
+                }
+            }
+        }
+        return foodLocation;
+    }
+
+    private void incrementHunger() {
+        foodLevel--;
+        if (foodLevel <= 0) {
+            setDead();
+        }
     }
 }

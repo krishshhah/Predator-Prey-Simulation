@@ -22,9 +22,9 @@ public class Shark extends Animal
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a Shark can go before it has to eat again.
-    private static final int TURTLE_FOOD_VALUE = 9;
+    private static final int TURTLE_FOOD_VALUE = 11;
 
-    private static final int CROCODILE_FOOD_VALUE = 12;
+    private static final int CROCODILE_FOOD_VALUE = 14;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     

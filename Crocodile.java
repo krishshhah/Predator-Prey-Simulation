@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -22,11 +23,14 @@ public class Crocodile extends Animal
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
+    private int foodLevel;
     // Individual characteristics (instance fields).
 
     // The Crocodile's age.
     private int age;
     // The Crocodile's gender, true if isMale, false if female
+
+    private static final int PLANT_BITE = 5;
 
     /**
      * Create a new Crocodile. A Crocodile may be created with age
@@ -44,6 +48,7 @@ public class Crocodile extends Animal
         }
         lifeExpectancy = MAX_AGE;
         isMale = rand.nextBoolean();
+        foodLevel = 50;
     }
 
     /**
@@ -65,13 +70,16 @@ public class Crocodile extends Animal
             if(validTime(currentTime) && !freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations, adjacentLocations);
             }
-            // Try to move into a free location.
-            if(! freeLocations.isEmpty()) {
-                Location nextLocation = freeLocations.get(0);
+            Location nextLocation = findFood(currentField);
+            if(nextLocation == null && ! freeLocations.isEmpty()) {
+                // No food found - try to move to a free location.
+                nextLocation = freeLocations.remove(0);
+            }
+            // See if it was possible to move.
+            if(nextLocation != null) {
                 setLocation(nextLocation);
                 nextFieldState.placeAnimal(this, nextLocation);
-            }
-            else {
+            } else {
                 // Overcrowding.
                 setDead();
             }
@@ -135,6 +143,23 @@ public class Crocodile extends Animal
         return births;
     }
 
+    private Location findFood(Field field) {
+        List<Location> adjacent = field.getAdjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        Location foodLocation = null;
+        while (foodLocation == null && it.hasNext()) {
+            Location loc = it.next();
+            Animal animal = field.getAnimalAt(loc);
+            if (animal instanceof Plant plant) {
+                if (plant.isAlive()) {
+                    foodLevel = plant.eaten(PLANT_BITE);
+                    foodLocation = loc;
+                }
+            }
+        }
+        return foodLocation;
+    }
+
     /**
      * A Crocodile can breed if it has reached the breeding age.
      * @return true if the Crocodile can breed, false otherwise.
@@ -142,5 +167,13 @@ public class Crocodile extends Animal
     private boolean canBreed()
     {
         return age >= BREEDING_AGE;
+    }
+
+    private void incrementHunger()
+    {
+        foodLevel--;
+        if(foodLevel <= 0) {
+            setDead();
+        }
     }
 }
