@@ -23,14 +23,11 @@ public class Turtle extends Animal {
     private static final Random rand = Randomizer.getRandom();
 
     // Individual characteristics (instance fields).
-
-    private boolean hasDisease;
     // true = disease likely to exist, false = will not
     private final static boolean diseasePop = true;
-
-    private int foodLevel;
-
     private static final int PLANT_BITE = 5;
+    private boolean hasDisease;
+    private int foodLevel;
 
     /**
      * Create a new Turtle. A Turtle may be created with age
@@ -46,7 +43,7 @@ public class Turtle extends Animal {
         }
         isMale = rand.nextBoolean();
         double diseaseChance = rand.nextDouble();
-        hasDisease = diseaseChance < 0.05; // x% of having a disease
+        hasDisease = diseaseChance < 0.1; // x% of having a disease
         // if they have a disease, they only get 5 steps after catching disease (lives)
         lifeExpectancy = (diseasePop && hasDisease) ? age + 5 : MAX_AGE;
         foodLevel = 50;
@@ -73,12 +70,12 @@ public class Turtle extends Animal {
             }
             // Try to move into a free location.
             Location nextLocation = findFood(currentField);
-            if(nextLocation == null && ! freeLocations.isEmpty()) {
+            if (nextLocation == null && !freeLocations.isEmpty()) {
                 // No food found - try to move to a free location.
                 nextLocation = freeLocations.remove(0);
             }
             // See if it was possible to move.
-            if(nextLocation != null) {
+            if (nextLocation != null) {
                 setLocation(nextLocation);
                 nextFieldState.placeAnimal(this, nextLocation);
             } else {

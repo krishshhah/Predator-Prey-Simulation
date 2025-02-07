@@ -1,4 +1,3 @@
-
 /**
  * Common elements of foxes and rabbits.
  *
@@ -6,15 +5,14 @@
  * @version 7.0
  */
 public abstract class Animal {
+    protected int lifeExpectancy;
+    protected int age;
+    // The Turtle's gender, true if isMale, false if female
+    protected boolean isMale;
     // Whether the animal is alive or not.
     private boolean alive;
     // The animal's position.
     private Location location;
-    protected int lifeExpectancy;
-    protected int age;
-
-    // The Turtle's gender, true if isMale, false if female
-    protected boolean isMale;
 
     /**
      * Constructor for objects of class Animal.

@@ -2,10 +2,10 @@ import java.util.List;
 import java.util.Random;
 
 public class Plant extends Animal {
-    private static int GROWTH_RATE = 5;
-    private int height; // height in meters
-    private static final int MAX_HEIGHT = 200;
+    private static final int MAX_HEIGHT = 100;
     private static final Random rand = Randomizer.getRandom();
+    private static final int GROWTH_RATE = 5;
+    private int height; // height in meters
 
     public Plant(boolean randomHeight, Location location) {
         super(location);
@@ -39,9 +39,8 @@ public class Plant extends Animal {
     }
 
 
-
     public void incrementHeight() {
-        height += 10;
+        height += GROWTH_RATE;
         if (height > MAX_HEIGHT) {
             height = MAX_HEIGHT;
         }
@@ -62,7 +61,7 @@ public class Plant extends Animal {
 
 
     private boolean breeding() {
-        return rand.nextDouble() < 0.1; // 10% chance of reproducing asexually
+        return rand.nextDouble() < 0.01; // 1% chance of reproducing asexually
     }
 
 
