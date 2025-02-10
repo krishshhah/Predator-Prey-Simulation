@@ -16,7 +16,7 @@ public class Orca extends Animal {
     // The age to which a Orca can live.
     private static final int MAX_AGE = 200;
     // The likelihood of a Orca breeding.
-    private static final double BREEDING_PROBABILITY = 0.14;
+    private static final double BREEDING_PROBABILITY = 0.2;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
@@ -29,8 +29,6 @@ public class Orca extends Animal {
 
     // Individual characteristics (instance fields).
 
-    // The Orca's age.
-    private int age;
     // The Orca's food level, which is increased by eating rabbits.
     private int foodLevel;
 
@@ -70,7 +68,7 @@ public class Orca extends Animal {
                     nextFieldState.getFreeAdjacentLocations(getLocation());
             List<Location> adjacentLocationsLocations =
                     nextFieldState.getAdjacentLocations(getLocation());
-            if (!freeLocations.isEmpty()) {
+            if (validTime(currentTime) && !freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations, adjacentLocationsLocations);
             }
             // Move towards a source of food if found.

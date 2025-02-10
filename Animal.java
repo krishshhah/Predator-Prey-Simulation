@@ -87,7 +87,7 @@ public abstract class Animal {
      *
      * @param time The current time.
      */
-    protected boolean validTime(int time) {
+    protected static boolean validTime(int time) {
         // between 6am to 7pm
         return (time > 6) && (time < 19);
     }

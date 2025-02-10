@@ -9,6 +9,7 @@ import java.util.Random;
  * @author David J. Barnes and Michael Kölling
  * @version 7.1
  */
+
 public class Turtle extends Animal {
     // Characteristics shared by all Turtles (class variables).
     // The age at which a Turtle can start to breed.
@@ -16,7 +17,7 @@ public class Turtle extends Animal {
     // The age to which a Turtle can live.
     private static final int MAX_AGE = 40;
     // The likelihood of a Turtle breeding.
-    private static final double BREEDING_PROBABILITY = 0.12;
+    private static final double BREEDING_PROBABILITY = 0.22;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 4;
     // A shared random number generator to control breeding.
@@ -31,7 +32,7 @@ public class Turtle extends Animal {
 
     /**
      * Create a new Turtle. A Turtle may be created with age
-     * zero (a new born) or with a random age.
+     * zero (a newborn) or with a random age.
      *
      * @param randomAge If true, the Turtle will have a random age.
      * @param location  The location within the field.
@@ -106,40 +107,6 @@ public class Turtle extends Animal {
     }
 
     /**
-     * Check whether this Turtle is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     *
-     * @param freeLocations The locations that are free in the current field.
-     */
-    private void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations) {
-        // New Turtles are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        int maleCount = 0;
-        if (!this.isMale && canBreed()) { // if female - only females can 'give birth'
-            // find the number of animals in the nextFieldState which are isMale turtles
-            for (Location adjacentLocation : adjacentLocations) {
-                if (nextFieldState.getAnimalAt(adjacentLocation) instanceof Turtle matingTurtle) {
-                    if (matingTurtle.isMale) {
-                        // if they mate: the isMale gets a disease if female has it
-                        if ((this.hasDisease || matingTurtle.hasDisease) && rand.nextDouble() < 0.5) { // 50% chance of transmission
-                            this.catchDisease();
-                            matingTurtle.catchDisease();
-                        }
-                        maleCount++;
-                    }
-                }
-            }
-            // gives as many births as possible into free adjacent locations
-            // based on number of males in vicinity or max number of births
-            for (int b = 0; b < maleCount && b < MAX_LITTER_SIZE && !freeLocations.isEmpty(); b++) {
-                Location loc = freeLocations.remove(0);
-                Turtle young = new Turtle(false, loc);
-                nextFieldState.placeAnimal(young, loc);
-            }
-        }
-    }
-
-    /**
      * Generate a number representing the number of births,
      * if it can breed.
      *
@@ -181,10 +148,45 @@ public class Turtle extends Animal {
         return foodLocation;
     }
 
+
     private void incrementHunger() {
         foodLevel--;
         if (foodLevel <= 0) {
             setDead();
+        }
+    }
+
+    /**
+     * Check whether this Turtle is to give birth at this step.
+     * New births will be made into free adjacent locations.
+     *
+     * @param freeLocations The locations that are free in the current field.
+     */
+    private void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations) {
+        // New Turtles are born into adjacent locations.
+        // Get a list of adjacent free locations.
+        int maleCount = 0;
+        if (!this.isMale && canBreed()) { // if female - only females can 'give birth'
+            // find the number of animals in the nextFieldState which are isMale turtles
+            for (Location adjacentLocation : adjacentLocations) {
+                if (nextFieldState.getAnimalAt(adjacentLocation) instanceof Turtle matingTurtle) {
+                    if (matingTurtle.isMale) {
+                        // if they mate: the isMale gets a disease if female has it
+                        if ((this.hasDisease || matingTurtle.hasDisease) && rand.nextDouble() < 0.5) { // 50% chance of transmission
+                            this.catchDisease();
+                            matingTurtle.catchDisease();
+                        }
+                        maleCount++;
+                    }
+                }
+            }
+            // gives as many births as possible into free adjacent locations
+            // based on number of males in vicinity or max number of births
+            for (int b = 0; b < maleCount && b < MAX_LITTER_SIZE && !freeLocations.isEmpty(); b++) {
+                Location loc = freeLocations.remove(0);
+                Turtle young = new Turtle(false, loc);
+                nextFieldState.placeAnimal(young, loc);
+            }
         }
     }
 }

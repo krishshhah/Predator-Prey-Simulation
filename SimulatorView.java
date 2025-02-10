@@ -23,9 +23,11 @@ public class SimulatorView extends JFrame {
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
     private final String TIME_PREFIX = "Time: ";
+    private final String TEMPERATURE_PREFIX = "Temperature: ";
     private final JLabel stepLabel;
     private final JLabel population;
     private final JLabel time;
+    private final JLabel weather;
     private final FieldView fieldView;
 
     // A map for storing colors for participants in the simulation
@@ -52,6 +54,7 @@ public class SimulatorView extends JFrame {
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         time = new JLabel(TIME_PREFIX, JLabel.CENTER);
+        weather = new JLabel(TEMPERATURE_PREFIX, JLabel.CENTER);
 
         setLocation(100, 50);
 
@@ -65,6 +68,7 @@ public class SimulatorView extends JFrame {
         infoPanel.setLayout(new FlowLayout()); // Align labels side by side
         infoPanel.add(population);
         infoPanel.add(time);
+        infoPanel.add(weather);
 
         contents.add(infoPanel, BorderLayout.SOUTH); // Add the panel instead
 
@@ -124,8 +128,9 @@ public class SimulatorView extends JFrame {
         }
         stats.countFinished();
 
-        population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
-        time.setText(TIME_PREFIX + currentTime);
+        population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field) + " | ");
+        time.setText(TIME_PREFIX + currentTime + " | ");
+        weather.setText(TEMPERATURE_PREFIX + Crocodile.displayCold());
         fieldView.repaint();
     }
 

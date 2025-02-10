@@ -16,9 +16,9 @@ public class Shark extends Animal {
     // The age to which a Shark can live.
     private static final int MAX_AGE = 150;
     // The likelihood of a Shark breeding.
-    private static final double BREEDING_PROBABILITY = 0.10;
+    private static final double BREEDING_PROBABILITY = 0.20;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 2;
+    private static final int MAX_LITTER_SIZE = 3;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a Shark can go before it has to eat again.
     private static final int TURTLE_FOOD_VALUE = 11;
@@ -70,7 +70,7 @@ public class Shark extends Animal {
                     nextFieldState.getFreeAdjacentLocations(getLocation());
             List<Location> adjacentLocationsLocations =
                     nextFieldState.getAdjacentLocations(getLocation());
-            if (!freeLocations.isEmpty()) {
+            if (validTime(currentTime) && !freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations, adjacentLocationsLocations);
             }
             // Move towards a source of food if found.

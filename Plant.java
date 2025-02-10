@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Plant extends Animal {
-    private static final int MAX_HEIGHT = 100;
+    private static final int MAX_HEIGHT = 50;
     private static final Random rand = Randomizer.getRandom();
     private static final int GROWTH_RATE = 5;
     private int height; // height in meters
@@ -11,7 +11,7 @@ public class Plant extends Animal {
         super(location);
         height = 0;
         if (randomHeight) {
-            height = rand.nextInt(10, MAX_HEIGHT);
+            height = rand.nextInt(MAX_HEIGHT);
         }
     }
 
@@ -31,7 +31,7 @@ public class Plant extends Animal {
 
         if (freeLocations.isEmpty()) return;
 
-        if (breeding()) {
+        if (canBreed()) {
             Location location = freeLocations.remove(0);
             Plant young = new Plant(true, location);
             nextFieldState.placeAnimal(young, location);
@@ -60,8 +60,8 @@ public class Plant extends Animal {
     }
 
 
-    private boolean breeding() {
-        return rand.nextDouble() < 0.01; // 1% chance of reproducing asexually
+    private boolean canBreed() {
+        return rand.nextDouble() < 0.001; // 1% chance of reproducing asexually
     }
 
 

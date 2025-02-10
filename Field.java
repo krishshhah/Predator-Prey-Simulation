@@ -139,9 +139,10 @@ public class Field {
                 }
             }
         }
-        System.out.println("Turtles: " + numTurtles +
-                " Sharks: " + numSharks + " Crocodiles: "
-                + numCrocodiles + " Plants: " + numPlants);
+        System.out.println("Plants: " + numPlants + ", Turtles: " + numTurtles +
+                 " Crocodiles: "
+                + numCrocodiles + ", Sharks: " + numSharks + ", Orcas: "
+                + numOrcas);
     }
 
     /**
@@ -157,7 +158,7 @@ public class Field {
      * @return true if there is at least one rabbit and one fox in the field.
      */
     public boolean isViable() {
-        boolean turtleFound = false, sharkFound = false, crocodileFound = false, orcaFound = false;
+        boolean turtleFound = false, sharkFound = false, crocodileFound = false, orcaFound = false, plantFound = false;
         Iterator<Animal> it = animals.iterator();
         while (it.hasNext() && !(turtleFound && sharkFound && crocodileFound && orcaFound)) {
             Animal anAnimal = it.next();
@@ -177,7 +178,11 @@ public class Field {
                 if (orca.isAlive()) {
                     orcaFound = true;
                 }
+            } else if (anAnimal instanceof Plant plant) {
+            if (plant.isAlive()) {
+                plantFound = true;
             }
+        }
         }
         return turtleFound && sharkFound && crocodileFound && orcaFound;
     }

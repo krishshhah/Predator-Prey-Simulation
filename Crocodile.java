@@ -16,7 +16,7 @@ public class Crocodile extends Animal {
     // The age to which a Crocodile can live.
     private static final int MAX_AGE = 45;
     // The likelihood of a Crocodile breeding.
-    private static final double BREEDING_PROBABILITY = 0.1;
+    private static final double BREEDING_PROBABILITY = 0.22;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 3;
     // A shared random number generator to control breeding.
@@ -24,13 +24,14 @@ public class Crocodile extends Animal {
     private static final int PLANT_BITE = 7;
     // Individual characteristics (instance fiels).
     private int foodLevel;
-    // The Crocodile's gender, true if isMale, false if female
     // The Crocodile's age.
     private int age;
+    // The weather. Cold weather means crocodiles can move, hot weather means they cannot
+    public static boolean isCold = true;
 
     /**
      * Create a new Crocodile. A Crocodile may be created with age
-     * zero (a new born) or with a random age.
+     * zero (a newborn) or with a random age.
      *
      * @param randomAge If true, the Crocodile will have a random age.
      * @param location  The location within the field.
@@ -56,8 +57,13 @@ public class Crocodile extends Animal {
      */
     public void act(Field currentField, Field nextFieldState, int currentTime) {
         incrementAge();
-
+        incrementHunger();
+        changeTemperature(currentTime); // see if the temperature needs to change based on time
         if (isAlive()) {
+            if (!isCold) { //weather colder during the night
+                nextFieldState.placeAnimal(this, this.getLocation()); // stays in same location
+                return; // nothing else happens - does not move, breed, eat/
+            }
             List<Location> freeLocations =
                     nextFieldState.getFreeAdjacentLocations(getLocation());
             List<Location> adjacentLocations =
@@ -65,6 +71,7 @@ public class Crocodile extends Animal {
             if (validTime(currentTime) && !freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations, adjacentLocations);
             }
+            // Try to move into a free location.
             Location nextLocation = findFood(currentField);
             if (nextLocation == null && !freeLocations.isEmpty()) {
                 // No food found - try to move to a free location.
@@ -168,5 +175,17 @@ public class Crocodile extends Animal {
         if (foodLevel <= 0) {
             setDead();
         }
+    }
+
+    public static String displayCold() {
+        if (isCold) {
+            return "Cold";
+        } else {
+            return "Hot";
+        }
+    }
+
+    public static void changeTemperature(int currentTime) {
+        isCold = !validTime(currentTime);
     }
 }
