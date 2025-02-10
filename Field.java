@@ -140,7 +140,7 @@ public class Field {
             }
         }
         System.out.println("Plants: " + numPlants + ", Turtles: " + numTurtles +
-                 " Crocodiles: "
+                " Crocodiles: "
                 + numCrocodiles + ", Sharks: " + numSharks + ", Orcas: "
                 + numOrcas);
     }
@@ -179,12 +179,12 @@ public class Field {
                     orcaFound = true;
                 }
             } else if (anAnimal instanceof Plant plant) {
-            if (plant.isAlive()) {
-                plantFound = true;
+                if (plant.isAlive()) {
+                    plantFound = true;
+                }
             }
-        }
-        }
-        return turtleFound && sharkFound && crocodileFound && orcaFound;
+        } // goes until a herbivore and carnivore is present
+        return (turtleFound || crocodileFound) && (sharkFound  || orcaFound);
     }
 
     /**

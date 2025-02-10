@@ -13,7 +13,7 @@ import java.util.Random;
 public class Turtle extends Animal {
     // Characteristics shared by all Turtles (class variables).
     // The age at which a Turtle can start to breed.
-    private static final int BREEDING_AGE = 3;
+    private static final int BREEDING_AGE = 2;
     // The age to which a Turtle can live.
     private static final int MAX_AGE = 40;
     // The likelihood of a Turtle breeding.
@@ -62,11 +62,15 @@ public class Turtle extends Animal {
         incrementAge();
         incrementHunger();
         if (isAlive()) {
+            if (!validTime(currentTime)) { //weather colder during the night
+                nextFieldState.placeAnimal(this, this.getLocation()); // stays in same location
+                return; // nothing else happens - does not move, breed, eat/
+            }
             List<Location> freeLocations =
                     nextFieldState.getFreeAdjacentLocations(getLocation());
             List<Location> adjacentLocations =
                     nextFieldState.getAdjacentLocations(getLocation());
-            if (validTime(currentTime) && !freeLocations.isEmpty()) {
+            if (!freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations, adjacentLocations);
             }
             // Try to move into a free location.

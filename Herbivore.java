@@ -9,7 +9,6 @@ public abstract class Herbivore extends Animal {
     protected final double BREEDING_PROBABILITY;
     protected final int MAX_LITTER_SIZE;
     protected final int PLANT_BITE;
-
     protected int foodLevel;
 
     public Herbivore(Location location, int breedingAge, int maxAge, double breedingProbability, int maxLitterSize, int plantBite, int foodLevel) {

@@ -12,7 +12,7 @@ import java.util.Random;
 public class Crocodile extends Animal {
     // Characteristics shared by all Crocodiles (class variables).
     // The age at which a Crocodile can start to breed.
-    private static final int BREEDING_AGE = 5;
+    private static final int BREEDING_AGE = 3;
     // The age to which a Crocodile can live.
     private static final int MAX_AGE = 45;
     // The likelihood of a Crocodile breeding.
@@ -22,12 +22,12 @@ public class Crocodile extends Animal {
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     private static final int PLANT_BITE = 7;
+    // The weather. Cold weather means crocodiles can move, hot weather means they cannot
+    public static boolean isCold = true;
     // Individual characteristics (instance fiels).
     private int foodLevel;
     // The Crocodile's age.
     private int age;
-    // The weather. Cold weather means crocodiles can move, hot weather means they cannot
-    public static boolean isCold = true;
 
     /**
      * Create a new Crocodile. A Crocodile may be created with age
@@ -45,6 +45,18 @@ public class Crocodile extends Animal {
         lifeExpectancy = MAX_AGE;
         isMale = rand.nextBoolean();
         foodLevel = 50;
+    }
+
+    public static String displayCold() {
+        if (isCold) {
+            return "Cold";
+        } else {
+            return "Hot";
+        }
+    }
+
+    public static void changeTemperature(int currentTime) {
+        isCold = !validTime(currentTime);
     }
 
     /**
@@ -96,7 +108,6 @@ public class Crocodile extends Animal {
                 ", location=" + getLocation() +
                 '}';
     }
-
 
     /**
      * Check whether this Crocodile is to give birth at this step.
@@ -175,17 +186,5 @@ public class Crocodile extends Animal {
         if (foodLevel <= 0) {
             setDead();
         }
-    }
-
-    public static String displayCold() {
-        if (isCold) {
-            return "Cold";
-        } else {
-            return "Hot";
-        }
-    }
-
-    public static void changeTemperature(int currentTime) {
-        isCold = !validTime(currentTime);
     }
 }

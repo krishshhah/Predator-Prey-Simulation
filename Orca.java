@@ -12,7 +12,7 @@ import java.util.Random;
 public class Orca extends Animal {
     // Characteristics shared by all Sharks (class variables).
     // The age at which a Orca can start to breed.
-    private static final int BREEDING_AGE = 8;
+    private static final int BREEDING_AGE = 4;
     // The age to which a Orca can live.
     private static final int MAX_AGE = 200;
     // The likelihood of a Orca breeding.
@@ -26,8 +26,6 @@ public class Orca extends Animal {
     private static final int CROCODILE_FOOD_VALUE = 10;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-
-    // Individual characteristics (instance fields).
 
     // The Orca's food level, which is increased by eating rabbits.
     private int foodLevel;
@@ -64,11 +62,15 @@ public class Orca extends Animal {
         incrementAge();
         incrementHunger();
         if (isAlive()) {
+            if (!validTime(currentTime)) { //weather colder during the night
+                nextFieldState.placeAnimal(this, this.getLocation()); // stays in same location
+                return; // nothing else happens - does not move, breed, eat/
+            }
             List<Location> freeLocations =
                     nextFieldState.getFreeAdjacentLocations(getLocation());
             List<Location> adjacentLocationsLocations =
                     nextFieldState.getAdjacentLocations(getLocation());
-            if (validTime(currentTime) && !freeLocations.isEmpty()) {
+            if (!freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations, adjacentLocationsLocations);
             }
             // Move towards a source of food if found.

@@ -12,7 +12,7 @@ import java.util.Random;
 public class Shark extends Animal {
     // Characteristics shared by all Sharks (class variables).
     // The age at which a Shark can start to breed.
-    private static final int BREEDING_AGE = 8;
+    private static final int BREEDING_AGE = 3;
     // The age to which a Shark can live.
     private static final int MAX_AGE = 150;
     // The likelihood of a Shark breeding.
@@ -30,7 +30,6 @@ public class Shark extends Animal {
     // Individual characteristics (instance fields).
 
     // The Shark's age.
-    private int age;
     // The Shark's food level, which is increased by eating rabbits.
     private int foodLevel;
 
@@ -66,11 +65,15 @@ public class Shark extends Animal {
         incrementAge();
         incrementHunger();
         if (isAlive()) {
+            if (!validTime(currentTime)) { //weather colder during the night
+                nextFieldState.placeAnimal(this, this.getLocation()); // stays in same location
+                return; // nothing else happens - does not move, breed, eat/
+            }
             List<Location> freeLocations =
                     nextFieldState.getFreeAdjacentLocations(getLocation());
             List<Location> adjacentLocationsLocations =
                     nextFieldState.getAdjacentLocations(getLocation());
-            if (validTime(currentTime) && !freeLocations.isEmpty()) {
+            if (!freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations, adjacentLocationsLocations);
             }
             // Move towards a source of food if found.

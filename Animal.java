@@ -7,7 +7,7 @@
 public abstract class Animal {
     protected int lifeExpectancy;
     protected int age;
-    // The Turtle's gender, true if isMale, false if female
+    // The Turtle's gender, true if male, false if female
     protected boolean isMale;
     // Whether the animal is alive or not.
     private boolean alive;
@@ -26,6 +26,16 @@ public abstract class Animal {
         this.lifeExpectancy = 0;
     }
 
+    /**
+     * Checks if the animal might be resting/sleeping during nighttime.
+     * Used to also determine the weather.
+     *
+     * @param time The current time.
+     */
+    protected static boolean validTime(int time) {
+        // between 6am to 7pm
+        return (time > 6) && (time < 19);
+    }
 
     /**
      * Increase the age.
@@ -80,15 +90,5 @@ public abstract class Animal {
      */
     protected void setLocation(Location location) {
         this.location = location;
-    }
-
-    /**
-     * Checks if the animal might be resting/sleeping during nighttime.
-     *
-     * @param time The current time.
-     */
-    protected static boolean validTime(int time) {
-        // between 6am to 7pm
-        return (time > 6) && (time < 19);
     }
 }

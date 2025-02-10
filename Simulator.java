@@ -17,13 +17,13 @@ public class Simulator {
     // The probability that a fox will be created in any given grid position.
     private static final double SHARK_CREATION_PROBABILITY = 0.04;
     // The probability that a rabbit will be created in any given position.
-    private static final double TURTLE_CREATION_PROBABILITY = 0.10;
+    private static final double TURTLE_CREATION_PROBABILITY = 0.25;
 
-    private static final double CROCODILE_CREATION_PROBABILITY = 0.08;
+    private static final double CROCODILE_CREATION_PROBABILITY = 0.23;
 
-    private static final double ORCA_CREATION_PROBABILITY = 0.01;
+    private static final double ORCA_CREATION_PROBABILITY = 0.04;
 
-    private static final double PLANT_CREATION_PROBABILITY = 0.06;
+    private static final double PLANT_CREATION_PROBABILITY = 0.16;
     // A graphical view of the simulation.
     private final SimulatorView view;
     // The current state of the field.
