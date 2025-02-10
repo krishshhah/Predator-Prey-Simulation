@@ -21,7 +21,7 @@ public abstract class Herbivore extends Animal {
         this.foodLevel = foodLevel;
     }
 
-    public void incrementHunger() {
+    protected void incrementHunger() {
         foodLevel--;
         if (foodLevel <= 0) {
             setDead();

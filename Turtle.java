@@ -62,7 +62,7 @@ public class Turtle extends Animal {
         incrementAge();
         incrementHunger();
         if (isAlive()) {
-            if (!validTime(currentTime)) { //weather colder during the night
+            if (!validTime(currentTime)) { // does not have any activity at night
                 nextFieldState.placeAnimal(this, this.getLocation()); // stays in same location
                 return; // nothing else happens - does not move, breed, eat/
             }
