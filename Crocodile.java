@@ -36,7 +36,7 @@ public class Crocodile extends Prey {
      * @param location  The location within the field.
      */
     public Crocodile(boolean randomAge, Location location) {
-        super(randomAge, location, 3, 45, 0.22, 3, 7, 50);
+        super(randomAge, location, 2, 45, 0.22, 4, 7, 50);
     }
 
     public static String displayCold() {
@@ -64,15 +64,15 @@ public class Crocodile extends Prey {
         incrementHunger();
         changeTemperature(currentTime); // see if the temperature needs to change based on time
         if (isAlive()) {
-            if (!isCold) { //weather colder during the night
-                nextFieldState.placeAnimal(this, this.getLocation()); // stays in same location
-                return; // nothing else happens - does not move, breed, eat/
-            }
+//            if (!isCold) { //weather colder during the night
+//                nextFieldState.placeAnimal(this, this.getLocation()); // stays in same location
+//                return; // nothing else happens - does not move, breed, eat/
+//            }
             List<Location> freeLocations =
                     nextFieldState.getFreeAdjacentLocations(getLocation());
             List<Location> adjacentLocations =
                     nextFieldState.getAdjacentLocations(getLocation());
-            if (validTime(currentTime) && !freeLocations.isEmpty()) {
+            if (isCold && !freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations, adjacentLocations);
             }
             // Try to move into a free location.

@@ -37,7 +37,7 @@ public class Orca extends Predator {
      * @param location  The location within the field.
      */
     public Orca(boolean randomAge, Location location) {
-        super(location, 4, 200, 0.2, 2, 11, 14, rand.nextInt(11) + 10);
+        super(location, 2, 150, 0.25, 5, 11, 14, rand.nextInt(11) + 10);
         if (randomAge) {
             age = rand.nextInt(MAX_AGE);
         } else {

@@ -22,7 +22,6 @@ public abstract class Consumer extends Animal {
         this.foodLevel = foodLevel;
 
         lifeExpectancy = MAX_AGE;
-        isMale = rand.nextBoolean();
     }
 
     /**

@@ -41,7 +41,7 @@ public class Shark extends Predator {
      * @param location  The location within the field.
      */
     public Shark(boolean randomAge, Location location) {
-        super(location, 3, 150, 0.2, 3, 11, 14, rand.nextInt(11) + 10);
+        super(location, 2, 150, 0.25, 5, 11, 14, rand.nextInt(11) + 10);
         if (randomAge) {
             age = rand.nextInt(MAX_AGE);
         } else {

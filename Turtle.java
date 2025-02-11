@@ -40,7 +40,7 @@ public class Turtle extends Prey {
     public Turtle(boolean randomAge, Location location) {
         super(randomAge, location, 2, 40, 0.22, 4, 5, 50);
         double diseaseChance = rand.nextDouble();
-        hasDisease = diseaseChance < 0.1; // x% of having a disease
+        hasDisease = diseaseChance < 0.1; // 10% of having a disease
         // if they have a disease, they only get 5 steps after catching disease (lives)
         lifeExpectancy = (diseasePop && hasDisease) ? age + 5 : MAX_AGE;
     }

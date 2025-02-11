@@ -17,13 +17,13 @@ public class Simulator {
     // The probability that a fox will be created in any given grid position.
     private static final double SHARK_CREATION_PROBABILITY = 0.04;
     // The probability that a rabbit will be created in any given position.
-    private static final double TURTLE_CREATION_PROBABILITY = 0.25;
+    private static final double TURTLE_CREATION_PROBABILITY = 0.15;
 
-    private static final double CROCODILE_CREATION_PROBABILITY = 0.23;
+    private static final double CROCODILE_CREATION_PROBABILITY = 0.25;
 
     private static final double ORCA_CREATION_PROBABILITY = 0.04;
 
-    private static final double PLANT_CREATION_PROBABILITY = 0.16;
+    private static final double PLANT_CREATION_PROBABILITY = 0.21;
     // A graphical view of the simulation.
     private final SimulatorView view;
     // The current state of the field.
@@ -125,16 +125,16 @@ public class Simulator {
             for (int col = 0; col < field.getWidth(); col++) {
                 Location location = new Location(row, col);
                 Animal animal = null;
-                if (rand.nextDouble() <= SHARK_CREATION_PROBABILITY) {
-                    animal = new Shark(true, location);
-                } else if (rand.nextDouble() <= TURTLE_CREATION_PROBABILITY) {
-                    animal = new Turtle(true, location);
+                if (rand.nextDouble() <= PLANT_CREATION_PROBABILITY) {
+                    animal = new Plant(true, location);
                 } else if (rand.nextDouble() <= CROCODILE_CREATION_PROBABILITY) {
                     animal = new Crocodile(true, location);
                 } else if (rand.nextDouble() <= ORCA_CREATION_PROBABILITY) {
                     animal = new Orca(true, location);
-                } else if (rand.nextDouble() <= PLANT_CREATION_PROBABILITY) {
-                    animal = new Plant(true, location);
+                } else if (rand.nextDouble() <= TURTLE_CREATION_PROBABILITY) {
+                    animal = new Turtle(true, location);
+                }else if (rand.nextDouble() <= SHARK_CREATION_PROBABILITY) {
+                    animal = new Shark(true, location);
                 }
                 if (animal != null)
                     field.placeAnimal(animal, location);

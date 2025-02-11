@@ -26,10 +26,10 @@ public abstract class Predator extends Consumer {
             }
             List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
             List<Location> adjacentLocations = nextFieldState.getAdjacentLocations(getLocation());
+            Location nextLocation = findFood(currentField);
             if (!freeLocations.isEmpty()) {
                 giveBirth(nextFieldState, freeLocations, adjacentLocations);
             }
-            Location nextLocation = findFood(currentField);
             if (nextLocation == null && !freeLocations.isEmpty()) {
                 nextLocation = freeLocations.remove(0);
             }
@@ -52,13 +52,13 @@ public abstract class Predator extends Consumer {
         while (foodLocation == null && it.hasNext()) {
             Location loc = it.next();
             Animal animal = field.getAnimalAt(loc);
-            if (animal instanceof Turtle turtle && turtle.isAlive()) {
-                turtle.setDead();
-                foodLevel = TURTLE_FOOD_VALUE;
-                foodLocation = loc;
-            } else if (animal instanceof Crocodile crocodile && crocodile.isAlive()) {
+            if (animal instanceof Crocodile crocodile && crocodile.isAlive()) {
                 crocodile.setDead();
                 foodLevel = CROCODILE_FOOD_VALUE;
+                foodLocation = loc;
+            }else if (animal instanceof Turtle turtle && turtle.isAlive()) {
+                turtle.setDead();
+                foodLevel = TURTLE_FOOD_VALUE;
                 foodLocation = loc;
             }
         }

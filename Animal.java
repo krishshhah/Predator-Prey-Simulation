@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Common elements of foxes and rabbits.
  *
@@ -5,6 +7,7 @@
  * @version 7.0
  */
 public abstract class Animal {
+    private static final Random rand = Randomizer.getRandom();
     protected int lifeExpectancy;
     protected int age;
     // The Turtle's gender, true if male, false if female
@@ -24,6 +27,8 @@ public abstract class Animal {
         this.location = location;
         this.age = 0;
         this.lifeExpectancy = 0;
+
+        this.isMale = rand.nextBoolean();
     }
 
     /**

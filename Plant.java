@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Plant extends Animal {
-    private static final int MAX_HEIGHT = 200;
+    private static final int MAX_HEIGHT = 500;
     private static final Random rand = Randomizer.getRandom();
     private static final int GROWTH_RATE = 5;
     private int height; // height in meters
@@ -61,7 +61,7 @@ public class Plant extends Animal {
 
 
     private boolean canBreed(int currentTime) {
-        return validTime(currentTime) && rand.nextDouble() < 0.001; // 1% chance of reproducing asexually
+        return validTime(currentTime) && rand.nextDouble() < 0.01; // 1% chance of reproducing asexually
     }
 
 
