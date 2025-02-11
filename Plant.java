@@ -19,19 +19,19 @@ public class Plant extends Animal {
         incrementHeight();
         if (isAlive()) {
             nextFieldState.placeAnimal(this, this.getLocation());
-            giveBirth(nextFieldState);
+            giveBirth(nextFieldState, currentTime);
         } else {
             setDead();
         }
     }
 
-    private void giveBirth(Field nextFieldState) {
+    private void giveBirth(Field nextFieldState, int currentTime) {
         List<Location> freeLocations =
                 nextFieldState.getFreeAdjacentLocations(getLocation());
 
         if (freeLocations.isEmpty()) return;
 
-        if (canBreed()) {
+        if (canBreed(currentTime)) {
             Location location = freeLocations.remove(0);
             Plant young = new Plant(true, location);
             nextFieldState.placeAnimal(young, location);
@@ -60,8 +60,8 @@ public class Plant extends Animal {
     }
 
 
-    private boolean canBreed() {
-        return rand.nextDouble() < 0.001; // 1% chance of reproducing asexually
+    private boolean canBreed(int currentTime) {
+        return validTime(currentTime) && rand.nextDouble() < 0.001; // 1% chance of reproducing asexually
     }
 
 

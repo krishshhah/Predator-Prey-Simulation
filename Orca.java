@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -10,7 +9,7 @@ import java.util.Random;
  * @version 7.1
  */
 public class Orca extends Predator {
-//    // Characteristics shared by all Sharks (class variables).
+    //    // Characteristics shared by all Sharks (class variables).
 //    // The age at which a Orca can start to breed.
 //    private static final int BREEDING_AGE = 4;
 //    // The age to which a Orca can live.

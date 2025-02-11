@@ -184,7 +184,7 @@ public class Field {
                 }
             }
         } // goes until a herbivore and carnivore is present
-        return (turtleFound || crocodileFound) && (sharkFound  || orcaFound);
+        return (turtleFound || crocodileFound) && (sharkFound || orcaFound);
     }
 
     /**
