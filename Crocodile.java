@@ -9,24 +9,8 @@ import java.util.Random;
  * @version 7.1
  */
 public class Crocodile extends Prey {
-    // Characteristics shared by all Crocodiles (class variables).
-    // The age at which a Crocodile can start to breed.
-//    private static final int BREEDING_AGE = 3;
-//    // The age to which a Crocodile can live.
-//    private static final int MAX_AGE = 45;
-//    // The likelihood of a Crocodile breeding.
-//    private static final double BREEDING_PROBABILITY = 0.22;
-//    // The maximum number of births.
-//    private static final int MAX_LITTER_SIZE = 3;
-//    // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    //    private static final int PLANT_BITE = 7;
-//    // The weather. Cold weather means crocodiles can move, hot weather means they cannot
     public static boolean isCold = true;
-//    // Individual characteristics (instance fields).
-//    private int foodLevel;
-//    // The Crocodile's age.
-//    private int age;
 
     /**
      * Create a new Crocodile. A Crocodile may be created with age
@@ -36,7 +20,7 @@ public class Crocodile extends Prey {
      * @param location  The location within the field.
      */
     public Crocodile(boolean randomAge, Location location) {
-        super(randomAge, location, 2, 45, 0.22, 4, 7, 50);
+        super(randomAge, location, 2, 45, 4, 7, 50);
     }
 
     public static String displayCold() {
@@ -64,10 +48,6 @@ public class Crocodile extends Prey {
         incrementHunger();
         changeTemperature(currentTime); // see if the temperature needs to change based on time
         if (isAlive()) {
-//            if (!isCold) { //weather colder during the night
-//                nextFieldState.placeAnimal(this, this.getLocation()); // stays in same location
-//                return; // nothing else happens - does not move, breed, eat/
-//            }
             List<Location> freeLocations =
                     nextFieldState.getFreeAdjacentLocations(getLocation());
             List<Location> adjacentLocations =
@@ -130,53 +110,4 @@ public class Crocodile extends Prey {
             }
         }
     }
-
-//    /**
-//     * Generate a number representing the number of births,
-//     * if it can breed.
-//     *
-//     * @return The number of births (may be zero).
-//     */
-//    protected int breed() {
-//        int births;
-//        if (canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-//            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-//        } else {
-//            births = 0;
-//        }
-//        return births;
-//    }
-
-//    protected Location findFood(Field field) {
-//        List<Location> adjacent = field.getAdjacentLocations(getLocation());
-//        Iterator<Location> it = adjacent.iterator();
-//        Location foodLocation = null;
-//        while (foodLocation == null && it.hasNext()) {
-//            Location loc = it.next();
-//            Animal animal = field.getAnimalAt(loc);
-//            if (animal instanceof Plant plant) {
-//                if (plant.isAlive()) {
-//                    foodLevel = plant.eaten(PLANT_BITE);
-//                    foodLocation = loc;
-//                }
-//            }
-//        }
-//        return foodLocation;
-//    }
-
-//    /**
-//     * A Crocodile can breed if it has reached the breeding age.
-//     *
-//     * @return true if the Crocodile can breed, false otherwise.
-//     */
-//    private boolean canBreed() {
-//        return age >= BREEDING_AGE;
-//    }
-//
-//    private void incrementHunger() {
-//        foodLevel--;
-//        if (foodLevel <= 0) {
-//            setDead();
-//        }
-//    }
 }

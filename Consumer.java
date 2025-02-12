@@ -6,18 +6,16 @@ public abstract class Consumer extends Animal {
 
     protected final int BREEDING_AGE;
     protected final int MAX_AGE;
-    protected final double BREEDING_PROBABILITY;
     protected final int MAX_LITTER_SIZE;
     protected int foodLevel;
 
     /**
      * Constructor for Consumer.
      */
-    public Consumer(Location location, int breedingAge, int maxAge, double breedingProbability, int maxLitterSize, int foodLevel) {
+    public Consumer(Location location, int breedingAge, int maxAge, int maxLitterSize, int foodLevel) {
         super(location);
         this.BREEDING_AGE = breedingAge;
         this.MAX_AGE = maxAge;
-        this.BREEDING_PROBABILITY = breedingProbability;
         this.MAX_LITTER_SIZE = maxLitterSize;
         this.foodLevel = foodLevel;
 
@@ -32,16 +30,6 @@ public abstract class Consumer extends Animal {
         if (foodLevel <= 0) {
             setDead();
         }
-    }
-
-    /**
-     * Determines the number of births if the animal can breed.
-     */
-    protected int breed() {
-        if (canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            return rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return 0;
     }
 
     /**

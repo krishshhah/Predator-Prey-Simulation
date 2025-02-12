@@ -7,8 +7,8 @@ public abstract class Predator extends Consumer {
     protected final int TURTLE_FOOD_VALUE;
     protected final int CROCODILE_FOOD_VALUE;
 
-    public Predator(Location location, int breedingAge, int maxAge, double breedingProbability, int maxLitterSize, int turtleFoodValue, int crocodileFoodValue, int foodLevel) {
-        super(location, breedingAge, maxAge, breedingProbability, maxLitterSize, foodLevel);
+    public Predator(Location location, int breedingAge, int maxAge, int maxLitterSize, int turtleFoodValue, int crocodileFoodValue, int foodLevel) {
+        super(location, breedingAge, maxAge, maxLitterSize, foodLevel);
         this.TURTLE_FOOD_VALUE = turtleFoodValue;
         this.CROCODILE_FOOD_VALUE = crocodileFoodValue;
     }
@@ -56,7 +56,7 @@ public abstract class Predator extends Consumer {
                 crocodile.setDead();
                 foodLevel = CROCODILE_FOOD_VALUE;
                 foodLocation = loc;
-            }else if (animal instanceof Turtle turtle && turtle.isAlive()) {
+            } else if (animal instanceof Turtle turtle && turtle.isAlive()) {
                 turtle.setDead();
                 foodLevel = TURTLE_FOOD_VALUE;
                 foodLocation = loc;

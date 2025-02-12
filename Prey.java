@@ -6,8 +6,8 @@ public abstract class Prey extends Consumer {
     private static final Random rand = Randomizer.getRandom();
     protected final int PLANT_BITE;
 
-    public Prey(boolean randomAge, Location location, int breedingAge, int maxAge, double breedingProbability, int maxLitterSize, int plantBiteValue, int foodLevel) {
-        super(location, breedingAge, maxAge, breedingProbability, maxLitterSize, foodLevel);
+    public Prey(boolean randomAge, Location location, int breedingAge, int maxAge, int maxLitterSize, int plantBiteValue, int foodLevel) {
+        super(location, breedingAge, maxAge, maxLitterSize, foodLevel);
         this.PLANT_BITE = plantBiteValue;
 
         if (randomAge) age = rand.nextInt(MAX_AGE);

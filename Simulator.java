@@ -133,7 +133,7 @@ public class Simulator {
                     animal = new Orca(true, location);
                 } else if (rand.nextDouble() <= TURTLE_CREATION_PROBABILITY) {
                     animal = new Turtle(true, location);
-                }else if (rand.nextDouble() <= SHARK_CREATION_PROBABILITY) {
+                } else if (rand.nextDouble() <= SHARK_CREATION_PROBABILITY) {
                     animal = new Shark(true, location);
                 }
                 if (animal != null)

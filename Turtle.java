@@ -10,23 +10,9 @@ import java.util.Random;
  */
 
 public class Turtle extends Prey {
-    // Characteristics shared by all Turtles (class variables).
-    // The age at which a Turtle can start to breed.
-//    private static final int BREEDING_AGE = 2;
-//    // The age to which a Turtle can live.
-//    private static final int MAX_AGE = 40;
-//    // The likelihood of a Turtle breeding.
-//    private static final double BREEDING_PROBABILITY = 0.22;
-//    // The maximum number of births.
-//    private static final int MAX_LITTER_SIZE = 4;
-//    // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    //
-//    // Individual characteristics (instance fields).
-//    // true = disease likely to exist, false = will not
+    //  true = disease likely to exist, false = will not
     private final static boolean diseasePop = true;
-    //    private static final int PLANT_BITE = 5;
-//    private int foodLevel;
     private boolean hasDisease;
 
 
@@ -38,7 +24,7 @@ public class Turtle extends Prey {
      * @param location  The location within the field.
      */
     public Turtle(boolean randomAge, Location location) {
-        super(randomAge, location, 2, 40, 0.22, 4, 5, 50);
+        super(randomAge, location, 2, 40, 4, 5, 50);
         double diseaseChance = rand.nextDouble();
         hasDisease = diseaseChance < 0.1; // 10% of having a disease
         // if they have a disease, they only get 5 steps after catching disease (lives)
@@ -105,56 +91,6 @@ public class Turtle extends Prey {
                 ", location=" + getLocation() +
                 '}';
     }
-
-//    /**
-//     * Generate a number representing the number of births,
-//     * if it can breed.
-//     *
-//     * @return The number of births (may be zero).
-//     */
-//    private int breed() {
-//        int births;
-//        if (canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-//            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-//        } else {
-//            births = 0;
-//        }
-//        return births;
-//    }
-
-    /**
-     * A Turtle can breed if it has reached the breeding age.
-     *
-     * @return true if the Turtle can breed, false otherwise.
-     */
-//    private boolean canBreed() {
-//        return age >= BREEDING_AGE;
-//    }
-
-//    protected Location findFood(Field field) {
-//        List<Location> adjacent = field.getAdjacentLocations(getLocation());
-//        Iterator<Location> it = adjacent.iterator();
-//        Location foodLocation = null;
-//        while (foodLocation == null && it.hasNext()) {
-//            Location loc = it.next();
-//            Animal animal = field.getAnimalAt(loc);
-//            if (animal instanceof Plant plant) {
-//                if (plant.isAlive()) {
-//                    foodLevel = plant.eaten(PLANT_BITE);
-//                    foodLocation = loc;
-//                }
-//            }
-//        }
-//        return foodLocation;
-//    }
-
-
-//    private void incrementHunger() {
-//        foodLevel--;
-//        if (foodLevel <= 0) {
-//            setDead();
-//        }
-//    }
 
     /**
      * Check whether this Turtle is to give birth at this step.
