@@ -3,9 +3,9 @@ import java.util.Random;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field containing
- * rabbits and foxes.
+ * producers, prey, and predators.
  *
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes, Michael Kölling and Krish Shah
  * @version 7.1
  */
 public class Simulator {
@@ -14,15 +14,15 @@ public class Simulator {
     private static final int DEFAULT_WIDTH = 120;
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
-    // The probability that a fox will be created in any given grid position.
+    // The probability that a Shark will be created in any given grid position.
     private static final double SHARK_CREATION_PROBABILITY = 0.04;
-    // The probability that a rabbit will be created in any given position.
+    // The probability that a Turtle will be created in any given grid position.
     private static final double TURTLE_CREATION_PROBABILITY = 0.15;
-
-    private static final double CROCODILE_CREATION_PROBABILITY = 0.25;
-
+    // The probability that a Iguana will be created in any given grid position.
+    private static final double IGUANA_CREATION_PROBABILITY = 0.25;
+    // The probability that an Orca will be created in any given grid position.
     private static final double ORCA_CREATION_PROBABILITY = 0.04;
-
+    // The probability that a Plant will be created in any given grid position.
     private static final double PLANT_CREATION_PROBABILITY = 0.21;
     // A graphical view of the simulation.
     private final SimulatorView view;
@@ -30,6 +30,7 @@ public class Simulator {
     private Field field;
     // The current step of the simulation.
     private int step;
+    // The current time of the simulation's environment.
     private int time;
 
     /**
@@ -78,13 +79,13 @@ public class Simulator {
         reportStats();
         for (int n = 1; n <= numSteps && field.isViable(); n++) {
             simulateOneStep();
-            delay(50);         // adjust this to change execution speed
+            delay(100);         // adjust this to change execution speed
         }
     }
 
     /**
      * Run the simulation from its current state for a single step.
-     * Iterate over the whole field updating the state of each fox and rabbit.
+     * Iterate over the whole field updating the state of each animal.
      */
     public void simulateOneStep() {
         step++;
@@ -102,7 +103,7 @@ public class Simulator {
         field = nextFieldState;
 
         reportStats();
-        view.showStatus(step, field, displayTime());
+        view.showStatus(step, field, displayTime(), time);
     }
 
     /**
@@ -112,7 +113,7 @@ public class Simulator {
         step = 0;
         time = 1;
         populate();
-        view.showStatus(step, field, displayTime());
+        view.showStatus(step, field, displayTime(), time);
     }
 
     /**
@@ -127,8 +128,8 @@ public class Simulator {
                 Animal animal = null;
                 if (rand.nextDouble() <= PLANT_CREATION_PROBABILITY) {
                     animal = new Plant(true, location);
-                } else if (rand.nextDouble() <= CROCODILE_CREATION_PROBABILITY) {
-                    animal = new Crocodile(true, location);
+                } else if (rand.nextDouble() <= IGUANA_CREATION_PROBABILITY) {
+                    animal = new Iguana(true, location);
                 } else if (rand.nextDouble() <= ORCA_CREATION_PROBABILITY) {
                     animal = new Orca(true, location);
                 } else if (rand.nextDouble() <= TURTLE_CREATION_PROBABILITY) {
@@ -163,10 +164,19 @@ public class Simulator {
         }
     }
 
+    /**
+     * Increments the time hourly.
+     * If it reaches 24 hours, the time reverts back to 0.
+     */
     private void incrementTime() {
         time = (time + 1) % 24;
     }
 
+    /**
+     * Changes the way the time is displayed, based on AM or PM clocks.
+     *
+     * @return a string displaying the current time.
+     */
     private String displayTime() {
         int displayHour = (time == 0 || time == 12) ? 12 : time % 12;
         String period = (time < 12) ? "am" : "pm";

@@ -4,7 +4,7 @@ import java.util.*;
  * Represent a rectangular grid of field positions.
  * Each position is able to store a single animal/object.
  *
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes, Michael Kölling and Krish Shah
  * @version 7.0
  */
 public class Field {
@@ -115,7 +115,7 @@ public class Field {
      * Print out the number of foxes and rabbits in the field.
      */
     public void fieldStats() {
-        int numSharks = 0, numTurtles = 0, numCrocodiles = 0, numPlants = 0, numOrcas = 0;
+        int numSharks = 0, numTurtles = 0, numIguanas = 0, numPlants = 0, numOrcas = 0;
         for (Animal anAnimal : field.values()) {
             if (anAnimal instanceof Shark shark) {
                 if (shark.isAlive()) {
@@ -125,9 +125,9 @@ public class Field {
                 if (turtle.isAlive()) {
                     numTurtles++;
                 }
-            } else if (anAnimal instanceof Crocodile crocodile) {
-                if (crocodile.isAlive()) {
-                    numCrocodiles++;
+            } else if (anAnimal instanceof Iguana iguana) {
+                if (iguana.isAlive()) {
+                    numIguanas++;
                 }
             } else if (anAnimal instanceof Plant plant) {
                 if (plant.isAlive()) {
@@ -140,8 +140,8 @@ public class Field {
             }
         }
         System.out.println("Plants: " + numPlants + ", Turtles: " + numTurtles +
-                " Crocodiles: "
-                + numCrocodiles + ", Sharks: " + numSharks + ", Orcas: "
+                " Iguanas: "
+                + numIguanas + ", Sharks: " + numSharks + ", Orcas: "
                 + numOrcas);
     }
 
@@ -153,14 +153,14 @@ public class Field {
     }
 
     /**
-     * Return whether there is at least one rabbit and one fox in the field.
+     * Return whether there is at least one predator and one prey in the field.
      *
-     * @return true if there is at least one rabbit and one fox in the field.
+     * @return true if there is at least one predator and one prey in the field.
      */
     public boolean isViable() {
-        boolean turtleFound = false, sharkFound = false, crocodileFound = false, orcaFound = false, plantFound = false;
+        boolean turtleFound = false, sharkFound = false, iguanaFound = false, orcaFound = false;
         Iterator<Animal> it = animals.iterator();
-        while (it.hasNext() && !(turtleFound && sharkFound && crocodileFound && orcaFound)) {
+        while (it.hasNext() && !(turtleFound && sharkFound && iguanaFound && orcaFound)) {
             Animal anAnimal = it.next();
             if (anAnimal instanceof Turtle turtle) {
                 if (turtle.isAlive()) {
@@ -170,21 +170,17 @@ public class Field {
                 if (shark.isAlive()) {
                     sharkFound = true;
                 }
-            } else if (anAnimal instanceof Crocodile crocodile) {
-                if (crocodile.isAlive()) {
-                    crocodileFound = true;
+            } else if (anAnimal instanceof Iguana iguana) {
+                if (iguana.isAlive()) {
+                    iguanaFound = true;
                 }
             } else if (anAnimal instanceof Orca orca) {
                 if (orca.isAlive()) {
                     orcaFound = true;
                 }
-            } else if (anAnimal instanceof Plant plant) {
-                if (plant.isAlive()) {
-                    plantFound = true;
-                }
             }
         } // goes until a herbivore and carnivore is present
-        return (turtleFound || crocodileFound) && (sharkFound || orcaFound);
+        return (turtleFound || iguanaFound) && (sharkFound || orcaFound);
     }
 
     /**

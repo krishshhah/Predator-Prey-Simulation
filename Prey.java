@@ -2,6 +2,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Defines all common variables and methods for prey,
+ * who eat from plants and act in a similar way.
+ *
+ * @author David J. Barnes, Michael Kölling and Krish Shah
+ * @version 7.1
+ */
+
 public abstract class Prey extends Consumer {
     private static final Random rand = Randomizer.getRandom();
     protected final int PLANT_BITE;

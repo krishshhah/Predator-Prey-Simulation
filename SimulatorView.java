@@ -10,7 +10,7 @@ import java.util.Map;
  * Colors for each type of species can be defined using the
  * setColor method.
  *
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes, Michael Kölling and Krish Shah
  * @version 7.0
  */
 public class SimulatorView extends JFrame {
@@ -44,11 +44,11 @@ public class SimulatorView extends JFrame {
     public SimulatorView(int height, int width) {
         stats = new FieldStats();
         colors = new LinkedHashMap<>();
-        setColor(Turtle.class, Color.yellow);
-        setColor(Shark.class, Color.lightGray);
-        setColor(Crocodile.class, Color.magenta);
-        setColor(Plant.class, Color.green);
-        setColor(Orca.class, Color.black);
+        setColor(Turtle.class, new Color(139, 69, 19)); // Saddle Brown
+        setColor(Shark.class, new Color(169, 169, 169));
+        setColor(Iguana.class, new Color(34, 139, 100)); // Forest Green
+        setColor(Plant.class, new Color(0, 200, 0));
+        setColor(Orca.class, new Color(50, 50, 50));
 
         setTitle("Underwater Ecosystem Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
@@ -102,10 +102,12 @@ public class SimulatorView extends JFrame {
     /**
      * Show the current status of the field.
      *
-     * @param step  Which iteration step it is.
-     * @param field The field whose status is to be displayed.
+     * @param step        Which iteration step it is.
+     * @param field       The field whose status is to be displayed.
+     * @param currentTime The current time of the environment.
+     * @param time
      */
-    public void showStatus(int step, Field field, String currentTime) {
+    public void showStatus(int step, Field field, String currentTime, int time) {
         if (!isVisible()) {
             setVisible(true);
         }
@@ -129,8 +131,8 @@ public class SimulatorView extends JFrame {
         stats.countFinished();
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field) + " | ");
-        time.setText(TIME_PREFIX + currentTime + " | ");
-        weather.setText(TEMPERATURE_PREFIX + Crocodile.displayCold());
+        this.time.setText(TIME_PREFIX + currentTime + " | ");
+        weather.setText(TEMPERATURE_PREFIX + Iguana.displayCold(time));
         fieldView.repaint();
     }
 

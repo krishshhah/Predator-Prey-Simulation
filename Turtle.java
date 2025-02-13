@@ -3,16 +3,17 @@ import java.util.Random;
 
 /**
  * A simple model of a Turtle.
- * Turtles age, move, breed, and die.
+ * Turtle age, eat, move, breed, and die.
  *
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes, Michael Kölling and Krish Shah
  * @version 7.1
  */
 
 public class Turtle extends Prey {
     private static final Random rand = Randomizer.getRandom();
-    //  true = disease likely to exist, false = will not
+    // can be set to true if user wants to have a disease in the simulation
     private final static boolean diseasePop = true;
+    // true if the turtle instance has a disease
     private boolean hasDisease;
 
 
@@ -27,13 +28,13 @@ public class Turtle extends Prey {
         super(randomAge, location, 2, 40, 4, 5, 50);
         double diseaseChance = rand.nextDouble();
         hasDisease = diseaseChance < 0.1; // 10% of having a disease
-        // if they have a disease, they only get 5 steps after catching disease (lives)
+        // if they have a disease, they only get 5 steps after catching disease (lives),
+        // else can live to MAX_AGE
         lifeExpectancy = (diseasePop && hasDisease) ? age + 5 : MAX_AGE;
     }
 
     /**
-     * This is what the Turtle does most of the time - it runs
-     * around. Sometimes it will breed or die of old age.
+     * Defines the turtle's behaviour: aging, eating plants, breeding and moving.
      *
      * @param currentField   The field occupied.
      * @param nextFieldState The updated field.
@@ -72,7 +73,6 @@ public class Turtle extends Prey {
         }
     }
 
-
     /**
      * if the animal catches disease then can only move 5 steps more than
      */
@@ -108,8 +108,8 @@ public class Turtle extends Prey {
             for (Location adjacentLocation : adjacentLocations) {
                 if (nextFieldState.getAnimalAt(adjacentLocation) instanceof Turtle matingTurtle) {
                     if (matingTurtle.isMale) {
-                        // if they mate: the isMale gets a disease if female has it
-                        if ((this.hasDisease || matingTurtle.hasDisease) && rand.nextDouble() < 0.5) { // 50% chance of transmission
+                        // if they mate: the male has a 50% chance of getting the disease if the female has it and vice versa
+                        if ((this.hasDisease || matingTurtle.hasDisease) && rand.nextDouble() < 0.5) {
                             this.catchDisease();
                             matingTurtle.catchDisease();
                         }

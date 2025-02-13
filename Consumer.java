@@ -1,12 +1,13 @@
 import java.util.List;
-import java.util.Random;
 
 public abstract class Consumer extends Animal {
-    private static final Random rand = Randomizer.getRandom();
-
+    // Minimum age required to start breeding
     protected final int BREEDING_AGE;
+    // Maximum age a consumer can have
     protected final int MAX_AGE;
+    // Maximum number of births at any given step
     protected final int MAX_LITTER_SIZE;
+    // Amount of food/energy
     protected int foodLevel;
 
     /**
@@ -18,7 +19,6 @@ public abstract class Consumer extends Animal {
         this.MAX_AGE = maxAge;
         this.MAX_LITTER_SIZE = maxLitterSize;
         this.foodLevel = foodLevel;
-
         lifeExpectancy = MAX_AGE;
     }
 
@@ -33,7 +33,9 @@ public abstract class Consumer extends Animal {
     }
 
     /**
-     * Determines whether the animal can breed based on its age.
+     * Determines whether the consumer can breed based on its age.
+     *
+     * @return true if the consumer can breed
      */
     protected boolean canBreed() {
         return age >= BREEDING_AGE;

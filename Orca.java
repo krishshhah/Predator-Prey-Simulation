@@ -2,10 +2,10 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * A simple model of a Orca.
- * Sharks age, move, eat rabbits, and die.
+ * A simple model of an Orca.
+ * Orcas age, move, hunt, breed, and die.
  *
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes, Michael Kölling and Krish Shah
  * @version 7.1
  */
 public class Orca extends Predator {
@@ -13,7 +13,7 @@ public class Orca extends Predator {
     private static final Random rand = Randomizer.getRandom();
 
     /**
-     * Create a Orca. A Orca can be created as a new born (age zero
+     * Creates an Orca. An Orca can be created as a newborn (age zero
      * and not hungry) or with a random age and food level.
      *
      * @param randomAge If true, the Orca will have random age and hunger level.
@@ -43,7 +43,8 @@ public class Orca extends Predator {
      * Check whether this Orca is to give birth at this step.
      * New births will be made into free adjacent locations.
      *
-     * @param freeLocations The locations that are free in the current field.
+     * @param freeLocations     The adjacent locations that are free in the current field.
+     * @param adjacentLocations The adjacent locations.
      */
     @Override
     protected void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations) {
@@ -51,7 +52,7 @@ public class Orca extends Predator {
         // Get a list of adjacent free locations.
         int maleCount = 0;
         if (!this.isMale && canBreed()) { // if female - only females can 'give birth'
-            // find the number of animals in the nextFieldState which are isMale turtles
+            // find the number of animals in the nextFieldState which are 'male crocodiles'
             for (Location adjacentLocation : adjacentLocations) {
                 if (nextFieldState.getAnimalAt(adjacentLocation) instanceof Orca matingOrca) {
                     if (matingOrca.isMale) {

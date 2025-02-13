@@ -1,16 +1,18 @@
 import java.util.Random;
 
 /**
- * Common elements of foxes and rabbits.
+ * Common elements for all animals - plants and consumers
  *
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes, Michael Kölling and Krish Shah
  * @version 7.0
  */
 public abstract class Animal {
     private static final Random rand = Randomizer.getRandom();
+    // The animal's life expectancy
     protected int lifeExpectancy;
+    // The animal's current age
     protected int age;
-    // The Turtle's gender, true if male, false if female
+    // The animal's gender, true if male, false if female
     protected boolean isMale;
     // Whether the animal is alive or not.
     private boolean alive;
@@ -27,15 +29,16 @@ public abstract class Animal {
         this.location = location;
         this.age = 0;
         this.lifeExpectancy = 0;
-
-        this.isMale = rand.nextBoolean();
+        this.isMale = rand.nextBoolean(); // relatively equal chance of male or female
     }
 
     /**
      * Checks if the animal might be resting/sleeping during nighttime.
      * Used to also determine the weather.
+     * Valid daytime hours are 6am to 7pm.
      *
      * @param time The current time.
+     * @return true if it is day, false if it is night.
      */
     protected static boolean validTime(int time) {
         // between 6am to 7pm
@@ -43,8 +46,8 @@ public abstract class Animal {
     }
 
     /**
-     * Increase the age.
-     * This could result in the Turtle's death.
+     * Increases the age.
+     * This could result in the animal's death.
      */
     protected void incrementAge() {
         age++;
@@ -72,7 +75,7 @@ public abstract class Animal {
     }
 
     /**
-     * Indicate that the animal is no longer alive.
+     * Indicates that the animal is no longer alive.
      */
     protected void setDead() {
         alive = false;

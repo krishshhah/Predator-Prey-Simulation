@@ -22,7 +22,7 @@ public class Shark extends Predator {
     public Shark(boolean randomAge, Location location) {
         super(location, 2, 150, 5, 11, 14, rand.nextInt(11) + 10);
         if (randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            age = rand.nextInt(lifeExpectancy);
         } else {
             age = 0;
         }
@@ -42,7 +42,9 @@ public class Shark extends Predator {
      * Check whether this Shark is to give birth at this step.
      * New births will be made into free adjacent locations.
      *
-     * @param freeLocations The locations that are free in the current field.
+     * @param nextFieldState
+     * @param freeLocations     The adjacent locations that are free in the current field.
+     * @param adjacentLocations The adjacent locations.
      */
     @Override
     protected void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations) {
@@ -50,7 +52,7 @@ public class Shark extends Predator {
         // Get a list of adjacent free locations.
         int maleCount = 0;
         if (!this.isMale && canBreed()) { // if female - only females can 'give birth'
-            // find the number of animals in the nextFieldState which are isMale turtles
+            // find the number of animals in the nextFieldState which are 'male sharks'
             for (Location adjacentLocation : adjacentLocations) {
                 if (nextFieldState.getAnimalAt(adjacentLocation) instanceof Shark matingShark) {
                     if (matingShark.isMale) {
@@ -59,7 +61,7 @@ public class Shark extends Predator {
                 }
             }
             // gives as many births as possible into free adjacent locations
-            // based on number of males in vicinity or max number of births
+            // based on number of males in vicinity or max number of births possible
             for (int b = 0; b < maleCount && b < MAX_LITTER_SIZE && !freeLocations.isEmpty(); b++) {
                 Location loc = freeLocations.remove(0);
                 Shark young = new Shark(false, loc);
