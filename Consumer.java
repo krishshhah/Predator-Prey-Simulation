@@ -1,5 +1,12 @@
 import java.util.List;
 
+/**
+ * Defines all common variables and methods for consumers who eat and move,
+ * unalike plants who can do neither.
+ *
+ * @author Krish Shah
+ * @version 1.2
+ */
 public abstract class Consumer extends Animal {
     // Minimum age required to start breeding
     protected final int BREEDING_AGE;
@@ -11,7 +18,7 @@ public abstract class Consumer extends Animal {
     protected int foodLevel;
 
     /**
-     * Constructor for Consumer.
+     * Constructor for the Consumers of the ecosystem.
      */
     public Consumer(Location location, int breedingAge, int maxAge, int maxLitterSize, int foodLevel) {
         super(location);

@@ -5,8 +5,8 @@ import java.util.Random;
  * A simple model of an Orca.
  * Orcas age, move, hunt, breed, and die.
  *
- * @author David J. Barnes, Michael Kölling and Krish Shah
- * @version 7.1
+ * @author Krish Shah
+ * @version 1.4
  */
 public class Orca extends Predator {
     // A shared random number generator to control breeding.

@@ -6,7 +6,7 @@ import java.util.Random;
  * producers, prey, and predators.
  *
  * @author David J. Barnes, Michael Kölling and Krish Shah
- * @version 7.1
+ * @version 7.4
  */
 public class Simulator {
     // Constants representing configuration information for the simulation.
@@ -96,7 +96,7 @@ public class Simulator {
 
         List<Animal> animals = field.getAnimals();
         for (Animal anAnimal : animals) {
-            anAnimal.act(field, nextFieldState, time);
+            anAnimal.act(field, nextFieldState, time); // all animals behave differently during hours of the day
         }
 
         // Replace the old state with the new one.

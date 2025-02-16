@@ -11,7 +11,7 @@ import java.util.Map;
  * setColor method.
  *
  * @author David J. Barnes, Michael Kölling and Krish Shah
- * @version 7.0
+ * @version 7.4
  */
 public class SimulatorView extends JFrame {
     // Colors used for empty locations.
@@ -104,8 +104,8 @@ public class SimulatorView extends JFrame {
      *
      * @param step        Which iteration step it is.
      * @param field       The field whose status is to be displayed.
-     * @param currentTime The current time of the environment.
-     * @param time
+     * @param currentTime String display of the current time of the environment.
+     * @param time        The current time of the environment.
      */
     public void showStatus(int step, Field field, String currentTime, int time) {
         if (!isVisible()) {

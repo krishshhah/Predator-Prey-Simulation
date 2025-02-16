@@ -5,7 +5,7 @@ import java.util.*;
  * Each position is able to store a single animal/object.
  *
  * @author David J. Barnes, Michael Kölling and Krish Shah
- * @version 7.0
+ * @version 7.4
  */
 public class Field {
     // A random number generator for providing random locations.
@@ -153,7 +153,7 @@ public class Field {
     }
 
     /**
-     * Return whether there is at least one predator and one prey in the field.
+     * Simulation runs until there is at least one predator and one prey in the field.
      *
      * @return true if there is at least one predator and one prey in the field.
      */

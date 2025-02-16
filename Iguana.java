@@ -4,8 +4,8 @@ import java.util.List;
  * A simple model of an Iguana.
  * Crocodiles age, eat, move, breed, and die.
  *
- * @author David J. Barnes, Michael Kölling and Krish Shah
- * @version 7.1
+ * @author Krish Shah
+ * @version 1.4
  */
 public class Iguana extends Prey {
     /**
@@ -22,7 +22,7 @@ public class Iguana extends Prey {
     /**
      * Helps display the current weather, used by the SimulatorView Class
      *
-     * @return string displaying "Hot" or "Cold"
+     * @return String displaying "Hot" or "Cold" weather based on the current time of the environment.
      */
     public static String displayCold(int currentTime) {
         if (validTime(currentTime)) {
@@ -33,7 +33,8 @@ public class Iguana extends Prey {
     }
 
     /**
-     * Defines the turtle's behaviour: aging, eating plants, breeding and moving.
+     * Defines the iguana's behaviour: aging, eating plants, breeding and moving.
+     * The iguana can still move and eat at any time but does not breed during the day due to warmer waters.
      *
      * @param currentField   The field occupied.
      * @param nextFieldState The updated field.

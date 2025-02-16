@@ -6,14 +6,14 @@ import java.util.Random;
  * Turtle age, eat, move, breed, and die.
  *
  * @author David J. Barnes, Michael Kölling and Krish Shah
- * @version 7.1
+ * @version 7.4
  */
 
 public class Turtle extends Prey {
     private static final Random rand = Randomizer.getRandom();
-    // can be set to true if user wants to have a disease in the simulation
+    // can be set to false if the user does not want to have a disease in the simulation.
     private final static boolean diseasePop = true;
-    // true if the turtle instance has a disease
+    // true if the turtle instance has a disease.
     private boolean hasDisease;
 
 
@@ -35,6 +35,7 @@ public class Turtle extends Prey {
 
     /**
      * Defines the turtle's behaviour: aging, eating plants, breeding and moving.
+     * Turtles don't move, breed, or feed during the night.
      *
      * @param currentField   The field occupied.
      * @param nextFieldState The updated field.

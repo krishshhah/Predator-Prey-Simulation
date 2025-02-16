@@ -6,12 +6,13 @@ import java.util.Random;
  * Defines all common variables and methods for prey,
  * who eat from plants and act in a similar way.
  *
- * @author David J. Barnes, Michael Kölling and Krish Shah
- * @version 7.1
+ * @author Krish Shah
+ * @version 1.0
  */
 
 public abstract class Prey extends Consumer {
     private static final Random rand = Randomizer.getRandom();
+    // The amount of energy a prey receives from biting a plant.
     protected final int PLANT_BITE;
 
     public Prey(boolean randomAge, Location location, int breedingAge, int maxAge, int maxLitterSize, int plantBiteValue, int foodLevel) {
@@ -20,11 +21,6 @@ public abstract class Prey extends Consumer {
 
         if (randomAge) age = rand.nextInt(MAX_AGE);
     }
-
-    /**
-     * Defines prey behavior: movement, breeding, and grazing.
-     */
-    public abstract void act(Field currentField, Field nextFieldState, int currentTime);
 
     /**
      * Searches for plants to eat in adjacent locations.
@@ -44,5 +40,4 @@ public abstract class Prey extends Consumer {
         return foodLocation;
     }
 
-    protected abstract void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations);
 }

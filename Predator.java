@@ -6,15 +6,15 @@ import java.util.Random;
  * Defines all common variables and methods for predators,
  * who hunt, act, and eat in similar way.
  *
- * @author David J. Barnes, Michael Kölling and Krish Shah
- * @version 7.1
+ * @author Krish Shah
+ * @version 1.0
  */
 
 public abstract class Predator extends Consumer {
     private static final Random rand = Randomizer.getRandom();
     // The energy gained by eating a turtle
     protected final int TURTLE_FOOD_VALUE;
-    // The energy gained by eating a crocodile
+    // The energy gained by eating an iguana
     protected final int IGUANA_FOOD_VALUE;
 
     public Predator(Location location, int breedingAge, int maxAge, int maxLitterSize, int turtleFoodValue, int iguanaFoodValue, int foodLevel) {
@@ -25,6 +25,7 @@ public abstract class Predator extends Consumer {
 
     /**
      * Defines the predator's behavior: aging, hunting, breeding, and moving.
+     * Predators do not move, breed or hunt during the night.
      *
      * @param currentField   The field occupied.
      * @param nextFieldState The updated field.
@@ -35,7 +36,7 @@ public abstract class Predator extends Consumer {
         incrementHunger();
         if (isAlive()) {
             if (!validTime(currentTime)) {
-                nextFieldState.placeAnimal(this, this.getLocation());
+                nextFieldState.placeAnimal(this, this.getLocation()); // stay in the same location.
                 return;
             }
             List<Location> freeLocations = nextFieldState.getFreeAdjacentLocations(getLocation());
@@ -82,9 +83,4 @@ public abstract class Predator extends Consumer {
         }
         return foodLocation;
     }
-
-    /**
-     * Allows predators to give birth, override by subclasses.
-     */
-    protected abstract void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations);
 }
