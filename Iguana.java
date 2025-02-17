@@ -81,7 +81,8 @@ public class Iguana extends Prey {
      * Check whether this Iguana is to give birth at this step.
      * New births will be made into free adjacent locations.
      *
-     * @param freeLocations     The locations that are free in the current field.
+     * @param nextFieldState    The updated field.
+     * @param freeLocations     The locations that are free in the updated field.
      * @param adjacentLocations The adjacent locations.
      */
     protected void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations) {

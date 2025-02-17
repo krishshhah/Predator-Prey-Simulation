@@ -42,8 +42,8 @@ public class Shark extends Predator {
      * Check whether this Shark is to give birth at this step.
      * New births will be made into free adjacent locations.
      *
-     * @param nextFieldState
-     * @param freeLocations     The adjacent locations that are free in the current field.
+     * @param nextFieldState    The updated field.
+     * @param freeLocations     The locations that are free in the updated field.
      * @param adjacentLocations The adjacent locations.
      */
     @Override

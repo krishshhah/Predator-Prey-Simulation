@@ -25,7 +25,7 @@ public class Turtle extends Prey {
      * @param location  The location within the field.
      */
     public Turtle(boolean randomAge, Location location) {
-        super(randomAge, location, 2, 40, 4, 5, 50);
+        super(randomAge, location, 3, 40, 4, 5, 50);
         double diseaseChance = rand.nextDouble();
         hasDisease = diseaseChance < 0.1; // 10% of having a disease
         // if they have a disease, they only get 5 steps after catching disease (lives),
@@ -80,6 +80,7 @@ public class Turtle extends Prey {
     protected void catchDisease() {
         if (diseasePop && !hasDisease) {
             hasDisease = true;
+            // life expectancy is the current age and 5 more steps
             lifeExpectancy = age + 5;
         }
     }
@@ -97,7 +98,9 @@ public class Turtle extends Prey {
      * Check whether this Turtle is to give birth at this step.
      * New births will be made into free adjacent locations.
      *
-     * @param freeLocations The locations that are free in the current field.
+     * @param nextFieldState    The updated field.
+     * @param freeLocations     The locations that are free in the updated field.
+     * @param adjacentLocations The adjacent locations.
      */
     @Override
     protected void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations) {

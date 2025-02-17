@@ -15,7 +15,7 @@ public class Simulator {
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a Shark will be created in any given grid position.
-    private static final double SHARK_CREATION_PROBABILITY = 0.04;
+    private static final double SHARK_CREATION_PROBABILITY = 0.05;
     // The probability that a Turtle will be created in any given grid position.
     private static final double TURTLE_CREATION_PROBABILITY = 0.15;
     // The probability that a Iguana will be created in any given grid position.
@@ -179,7 +179,7 @@ public class Simulator {
      */
     private String displayTime() {
         int displayHour = (time == 0 || time == 12) ? 12 : time % 12;
-        String period = (time < 12) ? "am" : "pm";
+        String period = (time < 12) ? " am" : " pm";
         return displayHour + period;
     }
 
