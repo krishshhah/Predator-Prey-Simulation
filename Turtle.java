@@ -42,7 +42,7 @@ public class Turtle extends Prey {
      * @param currentTime    The current time of the environment.
      */
     @Override
-    public void act(Field currentField, Field nextFieldState, int currentTime) {
+    public void act(Field currentField, Field nextFieldState, int currentTime, boolean isSunny) {
         incrementAge();
         incrementHunger();
         if (isAlive()) {

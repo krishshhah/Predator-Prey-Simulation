@@ -40,7 +40,7 @@ public abstract class Animal {
      * @param time The current time.
      * @return true if it is day, false if it is night.
      */
-    protected static boolean validTime(int time) {
+    public static boolean validTime(int time) {
         // between 6am to 7pm
         return (time > 6) && (time < 19);
     }
@@ -62,8 +62,9 @@ public abstract class Animal {
      * @param currentField   The current state of the field.
      * @param nextFieldState The new state being built.
      * @param time           The current time of the environment, which impacts behaviour
+     * @param isSunny        The weather condition, which impacts behaviour
      */
-    abstract public void act(Field currentField, Field nextFieldState, int time);
+    abstract public void act(Field currentField, Field nextFieldState, int time, boolean isSunny);
 
     /**
      * Check whether the animal is alive or not.

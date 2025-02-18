@@ -24,9 +24,11 @@ public class SimulatorView extends JFrame {
     private final String POPULATION_PREFIX = "Population: ";
     private final String TIME_PREFIX = "Time: ";
     private final String TEMPERATURE_PREFIX = "Temperature: ";
+    private final String WEATHER_PREFIX = "Weather: ";
     private final JLabel stepLabel;
     private final JLabel population;
     private final JLabel time;
+    private final JLabel temperature;
     private final JLabel weather;
     private final FieldView fieldView;
 
@@ -54,7 +56,8 @@ public class SimulatorView extends JFrame {
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         time = new JLabel(TIME_PREFIX, JLabel.CENTER);
-        weather = new JLabel(TEMPERATURE_PREFIX, JLabel.CENTER);
+        temperature = new JLabel(TEMPERATURE_PREFIX, JLabel.CENTER);
+        weather = new JLabel(WEATHER_PREFIX, JLabel.CENTER);
 
         setLocation(100, 50);
 
@@ -68,6 +71,7 @@ public class SimulatorView extends JFrame {
         infoPanel.setLayout(new FlowLayout()); // Align labels side by side
         infoPanel.add(population);
         infoPanel.add(time);
+        infoPanel.add(temperature);
         infoPanel.add(weather);
 
         contents.add(infoPanel, BorderLayout.SOUTH); // Add the panel instead
@@ -107,7 +111,7 @@ public class SimulatorView extends JFrame {
      * @param currentTime String display of the current time of the environment.
      * @param time        The current time of the environment.
      */
-    public void showStatus(int step, Field field, String currentTime, int time) {
+    public void showStatus(int step, Field field, String currentTime, int time, String currentWeather) {
         if (!isVisible()) {
             setVisible(true);
         }
@@ -132,7 +136,8 @@ public class SimulatorView extends JFrame {
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field) + " | ");
         this.time.setText(TIME_PREFIX + currentTime + " | ");
-        weather.setText(TEMPERATURE_PREFIX + Iguana.displayCold(time));
+        temperature.setText(TEMPERATURE_PREFIX + Iguana.displayCold(time) + " | ");
+        weather.setText(WEATHER_PREFIX + currentWeather);
         fieldView.repaint();
     }
 

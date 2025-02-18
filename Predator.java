@@ -1,6 +1,5 @@
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Defines all common variables and methods for predators,
@@ -11,7 +10,6 @@ import java.util.Random;
  */
 
 public abstract class Predator extends Consumer {
-    private static final Random rand = Randomizer.getRandom();
     // The energy gained by eating a turtle
     protected final int TURTLE_FOOD_VALUE;
     // The energy gained by eating an iguana
@@ -31,11 +29,11 @@ public abstract class Predator extends Consumer {
      * @param nextFieldState The updated field.
      * @param currentTime    The current time of the environment.
      */
-    public void act(Field currentField, Field nextFieldState, int currentTime) {
+    public void act(Field currentField, Field nextFieldState, int currentTime, boolean isSunny) {
         incrementAge();
         incrementHunger();
         if (isAlive()) {
-            if (!validTime(currentTime)) {
+            if (!validTime(currentTime) || !isSunny) { // at night or if its cloudy/rainy
                 nextFieldState.placeAnimal(this, this.getLocation()); // stay in the same location.
                 return;
             }

@@ -49,7 +49,7 @@ public class Orca extends Predator {
      */
     @Override
     protected void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations) {
-        // New Turtles are born into adjacent locations.
+        // New Orcas are born into adjacent locations.
         // Get a list of adjacent free locations.
         int maleCount = 0;
         if (!this.isMale && canBreed()) { // if female - only females can 'give birth'

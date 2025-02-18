@@ -3,7 +3,7 @@ import java.util.Random;
 
 /**
  * A simple model of a Shark.
- * Sharks age, move, eat rabbits, and die.
+ * Sharks age, move, hunt, breed, and die.
  *
  * @author David J. Barnes and Michael Kölling
  * @version 7.1
@@ -13,7 +13,7 @@ public class Shark extends Predator {
     private static final Random rand = Randomizer.getRandom();
 
     /**
-     * Create a Shark. A Shark can be created as a new born (age zero
+     * Create a Shark. A Shark can be created as a newborn (age zero
      * and not hungry) or with a random age and food level.
      *
      * @param randomAge If true, the Shark will have random age and hunger level.

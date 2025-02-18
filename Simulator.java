@@ -11,14 +11,14 @@ import java.util.Random;
 public class Simulator {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
-    private static final int DEFAULT_WIDTH = 120;
+    private static final int DEFAULT_WIDTH = 130;
     // The default depth of the grid.
-    private static final int DEFAULT_DEPTH = 80;
+    private static final int DEFAULT_DEPTH = 85;
     // The probability that a Shark will be created in any given grid position.
     private static final double SHARK_CREATION_PROBABILITY = 0.05;
     // The probability that a Turtle will be created in any given grid position.
     private static final double TURTLE_CREATION_PROBABILITY = 0.15;
-    // The probability that a Iguana will be created in any given grid position.
+    // The probability that an Iguana will be created in any given grid position.
     private static final double IGUANA_CREATION_PROBABILITY = 0.25;
     // The probability that an Orca will be created in any given grid position.
     private static final double ORCA_CREATION_PROBABILITY = 0.04;
@@ -32,6 +32,10 @@ public class Simulator {
     private int step;
     // The current time of the simulation's environment.
     private int time;
+    // The current weather conditions: either sunny or rainy/cloudy
+    private boolean isSunny;
+    // For random probability behaviour.
+    private static final Random rand = Randomizer.getRandom();
 
     /**
      * Construct a simulation field with default size.
@@ -57,6 +61,7 @@ public class Simulator {
         field = new Field(depth, width);
         view = new SimulatorView(depth, width);
         time = 0;
+        isSunny = true;
 
         reset();
     }
@@ -90,20 +95,21 @@ public class Simulator {
     public void simulateOneStep() {
         step++;
         incrementTime();
+        isSunny = weatherChange();
         // Use a separate Field to store the starting state of
         // the next step.
         Field nextFieldState = new Field(field.getDepth(), field.getWidth());
 
         List<Animal> animals = field.getAnimals();
         for (Animal anAnimal : animals) {
-            anAnimal.act(field, nextFieldState, time); // all animals behave differently during hours of the day
+            anAnimal.act(field, nextFieldState, time, isSunny); // all animals behave differently during hours of the day
         }
 
         // Replace the old state with the new one.
         field = nextFieldState;
 
         reportStats();
-        view.showStatus(step, field, displayTime(), time);
+        view.showStatus(step, field, displayTime(), time, displayWeather());
     }
 
     /**
@@ -113,7 +119,7 @@ public class Simulator {
         step = 0;
         time = 1;
         populate();
-        view.showStatus(step, field, displayTime(), time);
+        view.showStatus(step, field, displayTime(), time, displayWeather());
     }
 
     /**
@@ -182,5 +188,36 @@ public class Simulator {
         String period = (time < 12) ? " am" : " pm";
         return displayHour + period;
     }
+
+    /**
+     * Changes the weather based on probabilities.
+     * Similar to a Markov Chain/Transition Matrix
+     *
+     *           S       R
+     *       S [0.9     0.1]
+     *
+     *       R [0.8     0.2]
+     *
+     * @return True if it will continue being sunny.
+     */
+    private boolean weatherChange() {
+        // if sunny, 90% it is sunny again next day
+        if (isSunny) return rand.nextDouble() < 0.9;
+        // if cloudy/rainy, 80% it is sunny the next day
+        return rand.nextDouble() < 0.8;
+    }
+
+    /**
+     * Displays the current weather of the environment.
+     *
+     * @return a string displaying the current weather.
+     */
+    private String displayWeather() {
+        if (!Animal.validTime(time)) return "Night";
+        if (isSunny) return "Sunny";
+        return "Cloudy";
+    }
+
+
 
 }

@@ -2,7 +2,7 @@ import java.util.List;
 
 /**
  * A simple model of an Iguana.
- * Crocodiles age, eat, move, breed, and die.
+ * Iguanas age, eat, move, breed, and die.
  *
  * @author Krish Shah
  * @version 1.4
@@ -40,7 +40,7 @@ public class Iguana extends Prey {
      * @param nextFieldState The updated field.
      * @param currentTime    The current time of the environment.
      */
-    public void act(Field currentField, Field nextFieldState, int currentTime) {
+    public void act(Field currentField, Field nextFieldState, int currentTime, boolean isSunny) {
         incrementAge();
         incrementHunger();
         if (isAlive()) {
@@ -86,11 +86,11 @@ public class Iguana extends Prey {
      * @param adjacentLocations The adjacent locations.
      */
     protected void giveBirth(Field nextFieldState, List<Location> freeLocations, List<Location> adjacentLocations) {
-        // New Crocodiles are born into adjacent locations.
+        // New Iguanas are born into adjacent locations.
         // Get a list of adjacent free locations.
         int maleCount = 0;
         if (!this.isMale && canBreed()) { // if female - only females can 'give birth'
-            // find the number of animals in the nextFieldState which are isMale crocodiles
+            // find the number of animals in the nextFieldState which are isMale iguanas
             for (Location adjacentLocation : adjacentLocations) {
                 if (nextFieldState.getAnimalAt(adjacentLocation) instanceof Iguana matingIguana) {
                     if (matingIguana.isMale) {

@@ -36,11 +36,11 @@ public class Plant extends Animal {
      * @param nextFieldState The updated field.
      * @param currentTime    The current time of the environment.
      */
-    public void act(Field currentField, Field nextFieldState, int currentTime) {
+    public void act(Field currentField, Field nextFieldState, int currentTime, boolean isSunny) {
         incrementHeight(); // height is increased
         if (isAlive()) {
             nextFieldState.placeAnimal(this, this.getLocation());
-            giveBirth(nextFieldState, currentTime);
+            giveBirth(nextFieldState, currentTime, isSunny);
         } else {
             setDead();
         }
@@ -52,13 +52,13 @@ public class Plant extends Animal {
      * @param nextFieldState The updated field.
      * @param currentTime    The current time of the environment.
      */
-    private void giveBirth(Field nextFieldState, int currentTime) {
+    private void giveBirth(Field nextFieldState, int currentTime, boolean isSunny) {
         List<Location> freeLocations =
                 nextFieldState.getFreeAdjacentLocations(getLocation());
 
         if (freeLocations.isEmpty()) return; // nowhere to move
 
-        if (canBreed(currentTime)) {
+        if (canBreed(currentTime, isSunny)) {
             Location location = freeLocations.remove(0);
             Plant young = new Plant(true, location);
             // new plant is placed in a free location
@@ -98,10 +98,12 @@ public class Plant extends Animal {
      * True if the plant can breed asexually.
      *
      * @param currentTime The current time of the environment to check if plant is 'awake'.
+     * @param isSunny The plant can only breed with sunlight energy
      * @return True if the plant beats the odds and is 'awake'.
      */
-    private boolean canBreed(int currentTime) {
-        return validTime(currentTime) && rand.nextDouble() < 0.01; // 1% chance of reproducing asexually
+    private boolean canBreed(int currentTime, boolean isSunny) {
+        return validTime(currentTime) && rand.nextDouble() < 0.01 && isSunny;
+        // 1% chance of reproducing asexually
     }
 
 }
