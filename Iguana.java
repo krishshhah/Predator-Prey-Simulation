@@ -16,7 +16,7 @@ public class Iguana extends Prey {
      * @param location  The location within the field.
      */
     public Iguana(boolean randomAge, Location location) {
-        super(randomAge, location, 2, 45, 4, 7, 50);
+        super(randomAge, location, 2, 60, 4, 9, 50);
     }
 
     /**

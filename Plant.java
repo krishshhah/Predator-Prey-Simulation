@@ -98,7 +98,7 @@ public class Plant extends Animal {
      * True if the plant can breed asexually.
      *
      * @param currentTime The current time of the environment to check if plant is 'awake'.
-     * @param isSunny The plant can only breed with sunlight energy
+     * @param isSunny     The plant can only breed with sunlight energy
      * @return True if the plant beats the odds and is 'awake'.
      */
     private boolean canBreed(int currentTime, boolean isSunny) {

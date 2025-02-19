@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Random;
 
 /**
  * A simple model of a Manatee.
@@ -10,9 +9,6 @@ import java.util.Random;
  */
 
 public class Manatee extends Prey {
-    private static final Random rand = Randomizer.getRandom();
-    // can be set to false if the user does not want to have a disease in the simulation.
-
     /**
      * Create a new Manatee. A Manatee may be created with age
      * zero (a newborn) or with a random age.
@@ -22,47 +18,6 @@ public class Manatee extends Prey {
      */
     public Manatee(boolean randomAge, Location location) {
         super(randomAge, location, 4, 25, 2, 10, 70);
-    }
-
-    /**
-     * Defines the manatee's behaviour: aging, eating plants, breeding and moving.
-     * Manatees don't move, breed, or feed during the night.
-     *
-     * @param currentField   The field occupied.
-     * @param nextFieldState The updated field.
-     * @param currentTime    The current time of the environment.
-     */
-    @Override
-    public void act(Field currentField, Field nextFieldState, int currentTime, boolean isSunny) {
-        incrementAge();
-        incrementHunger();
-        if (isAlive()) {
-            if (!validTime(currentTime)) { // does not have any activity at night
-                nextFieldState.placeAnimal(this, this.getLocation()); // stays in same location
-                return; // nothing else happens - does not move, breed, eat/
-            }
-            List<Location> freeLocations =
-                    nextFieldState.getFreeAdjacentLocations(getLocation());
-            List<Location> adjacentLocations =
-                    nextFieldState.getAdjacentLocations(getLocation());
-            if (!freeLocations.isEmpty()) {
-                giveBirth(nextFieldState, freeLocations, adjacentLocations);
-            }
-            // Try to move into a free location.
-            Location nextLocation = findFood(currentField);
-            if (nextLocation == null && !freeLocations.isEmpty()) {
-                // No food found - try to move to a free location.
-                nextLocation = freeLocations.remove(0);
-            }
-            // See if it was possible to move.
-            if (nextLocation != null) {
-                setLocation(nextLocation);
-                nextFieldState.placeAnimal(this, nextLocation);
-            } else {
-                // Overcrowding.
-                setDead();
-            }
-        }
     }
 
     @Override

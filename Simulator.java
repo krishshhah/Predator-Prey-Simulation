@@ -25,7 +25,9 @@ public class Simulator {
     // The probability that a Plant will be created in any given grid position.
     private static final double PLANT_CREATION_PROBABILITY = 0.21;
     // The probability that a Manatee will be created in any given grid position.
-    private static final double MANATEE_CREATION_PROBABILITY = 0.2;
+    private static final double MANATEE_CREATION_PROBABILITY = 0.17;
+    // For random probability behaviour.
+    private static final Random rand = Randomizer.getRandom();
     // A graphical view of the simulation.
     private final SimulatorView view;
     // The current state of the field.
@@ -36,8 +38,6 @@ public class Simulator {
     private int time;
     // The current weather conditions: either sunny or rainy/cloudy
     private boolean isSunny;
-    // For random probability behaviour.
-    private static final Random rand = Randomizer.getRandom();
 
     /**
      * Construct a simulation field with default size.
@@ -195,11 +195,11 @@ public class Simulator {
     /**
      * Changes the weather based on probabilities.
      * Similar to a Markov Chain/Transition Matrix
-     *
-     *           S       R
-     *       S [0.9     0.1]
-     *
-     *       R [0.8     0.2]
+     * <p>
+     * S       R
+     * S [0.9     0.1]
+     * <p>
+     * R [0.8     0.2]
      *
      * @return True if it will continue being sunny.
      */
@@ -220,7 +220,6 @@ public class Simulator {
         if (isSunny) return "Sunny";
         return "Cloudy";
     }
-
 
 
 }
