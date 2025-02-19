@@ -14,11 +14,15 @@ public abstract class Predator extends Consumer {
     protected final int TURTLE_FOOD_VALUE;
     // The energy gained by eating an iguana
     protected final int IGUANA_FOOD_VALUE;
+    // The energy gained by eating a manatee
+    protected final int MANATEE_FOOD_VALUE;
 
-    public Predator(Location location, int breedingAge, int maxAge, int maxLitterSize, int turtleFoodValue, int iguanaFoodValue, int foodLevel) {
+    public Predator(Location location, int breedingAge, int maxAge, int maxLitterSize, int turtleFoodValue, int iguanaFoodValue, int manateeFoodValue, int foodLevel) {
         super(location, breedingAge, maxAge, maxLitterSize, foodLevel);
         this.TURTLE_FOOD_VALUE = turtleFoodValue;
         this.IGUANA_FOOD_VALUE = iguanaFoodValue;
+        this.MANATEE_FOOD_VALUE = manateeFoodValue;
+
     }
 
     /**
@@ -72,6 +76,10 @@ public abstract class Predator extends Consumer {
             if (animal instanceof Iguana iguana && iguana.isAlive()) {
                 iguana.setDead();
                 foodLevel = IGUANA_FOOD_VALUE;
+                foodLocation = loc;
+            } else if (animal instanceof Manatee manatee && manatee.isAlive()) {
+                manatee.setDead();
+                foodLevel = MANATEE_FOOD_VALUE;
                 foodLocation = loc;
             } else if (animal instanceof Turtle turtle && turtle.isAlive()) {
                 turtle.setDead();

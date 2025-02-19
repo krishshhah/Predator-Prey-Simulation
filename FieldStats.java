@@ -35,12 +35,19 @@ public class FieldStats {
         if (!countsValid) {
             generateCounts(field);
         }
+        int size = counters.size();
+        int count = 0;
+
         for (Class<?> key : counters.keySet()) {
             Counter info = counters.get(key);
             details.append(info.getName())
                     .append(": ")
-                    .append(info.getCount())
-                    .append(' ');
+                    .append(info.getCount());
+
+            count++;
+            if (count < size) { // Append a comma only if it's not the last element
+                details.append(", ");
+            }
         }
         return details.toString();
     }

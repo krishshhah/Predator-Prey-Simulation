@@ -51,6 +51,7 @@ public class SimulatorView extends JFrame {
         setColor(Iguana.class, new Color(34, 139, 100)); // Forest Green
         setColor(Plant.class, new Color(0, 200, 0));
         setColor(Orca.class, new Color(50, 50, 50));
+        setColor(Manatee.class, new Color(102, 153, 255));
 
         setTitle("Underwater Ecosystem Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);

@@ -115,7 +115,7 @@ public class Field {
      * Print out the number of foxes and rabbits in the field.
      */
     public void fieldStats() {
-        int numSharks = 0, numTurtles = 0, numIguanas = 0, numPlants = 0, numOrcas = 0;
+        int numSharks = 0, numTurtles = 0, numIguanas = 0, numPlants = 0, numOrcas = 0, numManatees = 0;
         for (Animal anAnimal : field.values()) {
             if (anAnimal instanceof Shark shark) {
                 if (shark.isAlive()) {
@@ -137,12 +137,18 @@ public class Field {
                 if (orca.isAlive()) {
                     numOrcas++;
                 }
+            } else if (anAnimal instanceof Manatee manatee) {
+                if (manatee.isAlive()) {
+                    numManatees++;
+                }
             }
         }
-        System.out.println("Plants: " + numPlants + ", Turtles: " + numTurtles +
-                " Iguanas: "
-                + numIguanas + ", Sharks: " + numSharks + ", Orcas: "
-                + numOrcas);
+        System.out.println("Plants: " + numPlants +
+                ", Turtles: " + numTurtles +
+                " Iguanas: " + numIguanas +
+                ", Sharks: " + numSharks +
+                ", Orcas: " + numOrcas +
+                ", Manatees: " + numManatees);
     }
 
     /**
@@ -158,9 +164,9 @@ public class Field {
      * @return true if there is at least one predator and one prey in the field.
      */
     public boolean isViable() {
-        boolean turtleFound = false, sharkFound = false, iguanaFound = false, orcaFound = false;
+        boolean turtleFound = false, sharkFound = false, iguanaFound = false, orcaFound = false, manateeFound = false;
         Iterator<Animal> it = animals.iterator();
-        while (it.hasNext() && !(turtleFound && sharkFound && iguanaFound && orcaFound)) {
+        while (it.hasNext() && !(turtleFound && sharkFound && iguanaFound && orcaFound && manateeFound)) {
             Animal anAnimal = it.next();
             if (anAnimal instanceof Turtle turtle) {
                 if (turtle.isAlive()) {
@@ -178,9 +184,13 @@ public class Field {
                 if (orca.isAlive()) {
                     orcaFound = true;
                 }
+            } else if (anAnimal instanceof Manatee manatee) {
+                if (manatee.isAlive()) {
+                    manateeFound = true;
+                }
             }
         } // goes until a herbivore and carnivore is present
-        return (turtleFound || iguanaFound) && (sharkFound || orcaFound);
+        return (turtleFound || iguanaFound || manateeFound) && (sharkFound || orcaFound);
     }
 
     /**

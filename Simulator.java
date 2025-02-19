@@ -24,6 +24,8 @@ public class Simulator {
     private static final double ORCA_CREATION_PROBABILITY = 0.04;
     // The probability that a Plant will be created in any given grid position.
     private static final double PLANT_CREATION_PROBABILITY = 0.21;
+    // The probability that a Manatee will be created in any given grid position.
+    private static final double MANATEE_CREATION_PROBABILITY = 0.2;
     // A graphical view of the simulation.
     private final SimulatorView view;
     // The current state of the field.
@@ -142,9 +144,10 @@ public class Simulator {
                     animal = new Turtle(true, location);
                 } else if (rand.nextDouble() <= SHARK_CREATION_PROBABILITY) {
                     animal = new Shark(true, location);
+                } else if (rand.nextDouble() <= MANATEE_CREATION_PROBABILITY) {
+                    animal = new Manatee(true, location);
                 }
-                if (animal != null)
-                    field.placeAnimal(animal, location);
+                if (animal != null) field.placeAnimal(animal, location);
             }
         }
     }
